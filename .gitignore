@@ -1,0 +1,14 @@
+.venv*/
+data/
+artifacts/
+results/*
+!results/sample/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.onnx
+*.tflite
+.coverage
+# local code-index tool cache, not project files
+graft/

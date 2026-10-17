@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edgebench"
+dynamic = ["version"]
+description = "Convert PyTorch models to ONNX Runtime FP32/INT8, check parity, benchmark, and gate regressions."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "torch==2.14.1",
+    "torchvision==0.29.1",
+    "onnx==1.23.2",
+    "onnxruntime==1.31.0",
+    "numpy==2.4.6",
+    "pillow==12.3.0",
+    "pyyaml==6.0.3",
+    "matplotlib==3.11.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "ruff==0.17.1",
+]
+# Unpinned and not installed yet: package name and torch compatibility unverified (Memory.md).
+tflite = ["ai-edge-litert"]
+aihub = ["qai-hub"]
+
+[project.scripts]
+edgebench = "edgebench.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "edgebench.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# Planning docs contain illustrative code snippets; they are not formatted as source.
+extend-exclude = ["docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "data: needs the real Imagenette dataset (local only)",
+    "slow: downloads pretrained weights (local only)",
+]

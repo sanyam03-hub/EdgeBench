@@ -59,7 +59,7 @@ Tasks
 1. `config.py`: load model config + target config (`yaml.safe_load`) into frozen dataclasses (`ModelConfig`, `TargetConfig`, `RunConfig`); validate required fields, allowed variant names, positive ints; raise `ConfigError` naming the field.
 2. Create `configs/mobilenet_v3_small.yaml`, `configs/resnet18.yaml`, `configs/targets/cpu_1t.yaml`, `cpu_4t.yaml`, `ci.yaml` (schemas in `Data_Schema.md`).
 3. `data.py`:
-   - `IMAGENETTE_WNID_TO_IMAGENET_IDX` mapping (n01440764→0, n02102040→217, n02979186→482, n03000684→491, n03028079→497, n03394916→566, n03417042→569, n03425413→571, n03445777→574, n03888605→701). **[verify folder names against the downloaded dataset]**
+   - `IMAGENETTE_WNID_TO_IMAGENET_IDX` mapping (n01440764→0, n02102040→217, n02979186→482, n03000684→491, n03028079→497, n03394916→566, n03417042→569, n03425413→571, n03445777→574, n03888257→701). Folder names verified against the downloaded dataset on 2026-10-18 (was wrongly `n03888605`).
    - `list_images(split_dir)` sorted by path; `sample_subset(paths, n, seed)` deterministic.
    - `preprocess(path, transforms) -> np.ndarray float32 (3,H,W)` using the torchvision weights' transforms.
    - `load_batch(paths, transforms) -> (np.ndarray (N,3,H,W), np.ndarray labels)`.

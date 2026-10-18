@@ -1,0 +1,33 @@
+schema_version: 1
+model: resnet18                    # key in models.py registry
+weights: DEFAULT                   # torchvision weights enum member
+dataset: imagenette2-160
+variants:
+  - torch_fp32
+  - onnx_fp32
+  - onnx_int8_dynamic
+  - onnx_int8_static
+export:
+  opset: 17
+quantization:
+  static:
+    per_channel: true
+    calibrate_method: minmax       # minmax | entropy | percentile
+    activation_type: quint8
+    weight_type: qint8
+  calibration:                     # drawn ONLY from train/
+    n_images: 256
+    batch_size: 32
+    seed: 0
+eval:                              # drawn ONLY from val/
+  n_images: 1000
+  batch_size: 32
+  seed: 0
+parity:
+  n_images: 32                     # first batch of the eval subset
+  fp32:                            # initial values; calibrate in Phase 4 and record why
+    max_abs_err: 1.0e-3
+    min_cosine: 0.9999
+    min_top1_agreement: 0.99
+  int8:
+    min_top1_agreement: 0.90

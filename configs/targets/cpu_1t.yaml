@@ -1,0 +1,8 @@
+schema_version: 1
+name: cpu_1t
+intra_op_threads: 1                # ORT intra-op and torch.set_num_threads
+inter_op_threads: 1
+batch_sizes: [1, 8]
+warmup: 20
+runs: 200
+noisy_cv_threshold: 0.10           # CV above this marks a measurement as noisy

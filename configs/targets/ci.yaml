@@ -1,0 +1,8 @@
+schema_version: 1
+name: ci                           # small values so the CI smoke run is fast
+intra_op_threads: 1
+inter_op_threads: 1
+batch_sizes: [1]
+warmup: 2
+runs: 10
+noisy_cv_threshold: 0.10

@@ -3,15 +3,15 @@
 > The AI reads this first in every session and updates it at the end of every phase and before the session ends. Keep it short and factual: current state, decisions, measured values, open issues. Newest entries at the top of each section. Never write numbers here that weren't measured.
 
 ## Current status
-- **Current phase:** Phase 1 — Project setup (done; Phase 2 not started)
+- **Current phase:** Phase 3 — Config and data (done; Phase 4 not started)
 - **Last updated:** 2026-10-18
-- **Next step:** Phase 2 — write tests first for `parity.py`, `bench.py` stats, `results.py` (see `Phases.md` Phase 2). Fix the WNID mapping error (Open issues) before Phase 3.
-- **Blockers:** none
+- **Next step:** Phase 4 — `models.py` (incl. `tiny_cnn`), `export.py`, backends; verify `torch.onnx.export` `dynamo=` mode for torch 2.14.1 first (see `Phases.md` Phase 4).
+- **Blockers:** none. Phases 2 and 3 are not committed yet (user has not asked).
 
 ## Phase checklist
 - [x] Phase 1 — Project setup (2026-10-18)
-- [ ] Phase 2 — Parity, latency stats, results schema
-- [ ] Phase 3 — Config and data
+- [x] Phase 2 — Parity, latency stats, results schema (2026-10-18)
+- [x] Phase 3 — Config and data (2026-10-18)
 - [ ] Phase 4 — Models, ONNX export, backends
 - [ ] Phase 5 — Quantization
 - [ ] Phase 6 — Evaluation, benchmark runner, `run` command
@@ -33,6 +33,20 @@
 ## Decisions log
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-10-18 | Config errors name the field as a quoted dotted path (`'eval.n_images'`); unknown keys rejected at every level; `bool` rejected where an int/float is expected | Tests can match the exact field; YAML `true` would otherwise pass as `1` |
+| 2026-10-18 | `model` and target `name` must match `[A-Za-z0-9_]+` | They become path parts (`artifacts/<model>/`, `baselines/<target>.json`) — stricter than Security.md's "no `/`, `\`, `..`" |
+| 2026-10-18 | `warmup` may be 0; all other counts ≥ 1; seeds ≥ 0; `noisy_cv_threshold` > 0; `dataset` ∈ {`imagenette2-160`, `synthetic`} | Data_Schema §2/§3 |
+| 2026-10-18 | `quantization` section always required, even if no INT8 variant is listed | Simpler, explicit configs |
+| 2026-10-18 | Labels returned by `data.load_batch` are **ImageNet indices** (e.g. 701), not 0–9 | 10-way accuracy (Data_Schema §5) is computed in `evaluate.py` (Phase 6); `tiny_cnn` smoke data will need its own label handling then |
+| 2026-10-18 | `data.py` doesn't import torch or onnxruntime; `ImagenetteCalibrationReader` is duck-typed | Verified in ORT 1.31.0: `CalibrationDataReader` only abstracts `get_next` and its `__subclasshook__` accepts any class with it (test asserts `isinstance`) |
+| 2026-10-18 | `sample_subset` = `default_rng(seed).choice(..., replace=False)`, result sorted | Deterministic and order-stable |
+| 2026-10-18 | Real-dataset `[data]` test loads the 1000-image eval subset per batch (32) | 7.4 GB machine with ~0.9 GB free OOM'd loading 1000×3×224×224 float32 + `np.stack` copy at once; assertion (all 1000 load, 10 classes) unchanged |
+| 2026-10-18 | Parity: `compare` requires 2-D non-empty equal shapes; checks only the tolerance keys given (`max_abs_err`, `min_cosine`, `min_top1_agreement`; unknown keys → `ValueError`); metrics in float64 | INT8 passes only `min_top1_agreement` (Data_Schema §2) |
+| 2026-10-18 | Cosine of a zero row: both zero → 1.0, one zero → 0.0 | Never NaN; identical-zero outputs count as agreement |
+| 2026-10-18 | Latency stats: `noisy` = CV strictly > threshold; single sample → std/CV 0.0; empty, negative or non-finite samples → `ValueError`; CV 0.0 when mean is 0 | Testing.md §3; bad timings are bugs, not data |
+| 2026-10-18 | Results dataclasses named `RunResults`, `VariantResult`, `Environment`, `AccuracyResult` (Data_Schema fixes field names only); `variants` is a tuple in code, list in JSON | Frozen, typed; JSON only at the boundary |
+| 2026-10-18 | `save_results` writes with `newline="\n"` | On Windows `write_text` would emit CRLF and break byte-stable diffs |
+| 2026-10-18 | Unknown extra fields in results JSON are ignored (not rejected) | Not specified; only required fields + `schema_version` + `status` are validated |
 | 2026-10-18 | Develop on **native Windows** with Python 3.11 (supersedes the WSL2 decision below) | No WSL Ubuntu distro installed; user chose speed. CI still runs on Linux. Phase 8 (ai-edge-torch) will need WSL/Linux when reached |
 | 2026-10-18 | Ruff excludes `docs/` (`extend-exclude`) | ruff 0.17 formats Python blocks inside Markdown; planning docs aren't source |
 | 2026-10-18 | CI runs `pytest -m "not data and not slow"` (Phases.md), not bare `pytest` (Testing.md §7) | Explicit exclusion; doesn't rely on auto-skip |
@@ -62,10 +76,16 @@
 - [ ] Imagenette licence wording for the README
 
 ## Open issues / known problems
-- **Phases.md Phase 3 WNID mapping is wrong for parachute:** dataset folder is `n03888257`, doc says `n03888605→701`. ImageNet index 701 = parachute = `n03888257` (`n03888605` is "parallel bars", 702). Fix the doc (with user approval) before writing `data.py`.
+- ~~Phases.md WNID mapping wrong for parachute~~ — fixed 2026-10-18 with user approval (`n03888605` → `n03888257`).
+- Import-isolation test covers parity, bench, results; add `edgebench.gate` in Phase 7.
+- **Low RAM:** 7.4 GB total, ~0.9 GB free during Phase 3. Evaluation (Phase 6) must stream batches, never hold the full eval set; close other apps before benchmark runs (also reduces latency noise).
+- `DOWNLOAD_COMMAND` in `data.py` uses `curl ... && tar ...` — works in bash and cmd, not Windows PowerShell 5.1 (no `&&`).
 - Doc commands in `CLAUDE.md` / `Phases.md` are bash/WSL; on this machine use PowerShell equivalents (e.g. `.\.venv\Scripts\Activate.ps1`).
 - Phase 8 (TFLite) needs a Linux environment (WSL Ubuntu not installed).
 
 ## Session log (one line per session, newest first)
+- 2026-10-18 — Phase 3 done: `config.py` + 5 configs, `data.py`, `conftest.py` synthetic dataset; `.gitignore` += `*.pt`, `.env`. Validation: config+data 59 passed (1 data test deselected); real `[data]` test passed; `list_images` val = 3925, train = 9469; fast suite 100 passed; ruff clean. Measured coverage: config 98%, data 96%. Eval subset (seed 0, n=1000) label counts by ImageNet idx: 0:97, 217:94, 482:81, 491:95, 497:98, 566:107, 569:109, 571:110, 574:95, 701:114.
+- 2026-10-18 — Phase 2 done: `parity.py`, `bench.py` (stats), `results.py`, tests written first, plus import-isolation test. Validation: 31/31 passed; full suite 41 passed; ruff clean. Measured coverage: bench 100%, parity 100%, results 98% (uncovered: non-object JSON branches, lines 119/149).
+- 2026-10-18 — Phase 1 committed (`1325534`) on branch `main` (renamed from `master`).
 - 2026-10-18 — Phase 1 done on native Windows: venv, pinned `pyproject.toml`, `__init__`/`errors`/`cli` + 9 tests, `.gitignore`, CI skeleton, Imagenette downloaded. Validation: `edgebench --help` OK, 9 passed, ruff check + format clean, val/train 10 class folders each.
 - 2026-10-18 — Planning docs written (PRD, TRD, Architecture, Rules, Phases, Design, Testing, Security, Data_Schema, Memory, CLAUDE.md). No code yet.

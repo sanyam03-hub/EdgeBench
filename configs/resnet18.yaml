@@ -25,7 +25,7 @@ eval:                              # drawn ONLY from val/
   seed: 0
 parity:
   n_images: 32                     # first batch of the eval subset
-  fp32:                            # initial values; calibrate in Phase 4 and record why
+  fp32:                            # kept after Phase 4 calibration; see docs/Memory.md Tolerances
     max_abs_err: 1.0e-3
     min_cosine: 0.9999
     min_top1_agreement: 0.99

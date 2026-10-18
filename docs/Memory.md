@@ -3,16 +3,16 @@
 > The AI reads this first in every session and updates it at the end of every phase and before the session ends. Keep it short and factual: current state, decisions, measured values, open issues. Newest entries at the top of each section. Never write numbers here that weren't measured.
 
 ## Current status
-- **Current phase:** Phase 3 — Config and data (done; Phase 4 not started)
+- **Current phase:** Phase 4 — Models, ONNX export, backends (done; Phase 5 not started)
 - **Last updated:** 2026-10-18
-- **Next step:** Phase 4 — `models.py` (incl. `tiny_cnn`), `export.py`, backends; verify `torch.onnx.export` `dynamo=` mode for torch 2.14.1 first (see `Phases.md` Phase 4).
-- **Blockers:** none. Phases 2 and 3 are not committed yet (user has not asked).
+- **Next step:** Phase 5 — explain QDQ / per-channel / calibration first (Rules §1.8), then `quantize.py` with tests on `tiny_cnn` (see `Phases.md` Phase 5).
+- **Blockers:** none. Phase 4 not committed yet. Phases 1–3 pushed to GitHub (`1c6b25b`); CI run on that push: success.
 
 ## Phase checklist
 - [x] Phase 1 — Project setup (2026-10-18)
 - [x] Phase 2 — Parity, latency stats, results schema (2026-10-18)
 - [x] Phase 3 — Config and data (2026-10-18)
-- [ ] Phase 4 — Models, ONNX export, backends
+- [x] Phase 4 — Models, ONNX export, backends (2026-10-18)
 - [ ] Phase 5 — Quantization
 - [ ] Phase 6 — Evaluation, benchmark runner, `run` command
 - [ ] Phase 7 — Report, gate, CI
@@ -33,6 +33,12 @@
 ## Decisions log
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-10-18 | ONNX export uses the **legacy TorchScript exporter** (`dynamo=False`, explicit) — user choice | torch 2.14.1 defaults to `dynamo=True`, which needs `onnxscript` (not installed, not in TRD). Legacy path works but emits `DeprecationWarning` ("will be removed"); torch is pinned so this is stable here. Revisit before any torch upgrade |
+| 2026-10-18 | `create_backend` takes an extra optional `weights="DEFAULT"` kwarg (not in Data_Schema §8 signature) | Torch reference must use the same weights as the exported model; otherwise a non-DEFAULT config silently compares against DEFAULT |
+| 2026-10-18 | Pretrained-weight download failure → `DatasetError` (exit 2); unknown model/weights → `ConfigError` | Architecture says "weights can't be downloaded → exit 2" but names no exception; weights treated as data |
+| 2026-10-18 | `TorchBackend` sets only `torch.set_num_threads(intra_op_threads)` (process-wide); inter-op threads not set for torch | `torch.set_num_interop_threads` raises once parallel work has run; torch has no per-model thread setting |
+| 2026-10-18 | No broad `except Exception` outside the run loop: export catches `(RuntimeError, TypeError, ValueError)`; ORT backend catches exactly the exception classes defined in `onnxruntime.capi.onnxruntime_pybind11_state` | Rules §5; verified ORT errors (e.g. `InvalidProtobuf`) derive directly from `Exception` |
+| 2026-10-18 | `tiny_cnn`: 2 conv + pool + linear, 10 classes, 32×32 input, seeded inside `torch.random.fork_rng()` | Deterministic without changing global RNG state (test checks this) |
 | 2026-10-18 | Config errors name the field as a quoted dotted path (`'eval.n_images'`); unknown keys rejected at every level; `bool` rejected where an int/float is expected | Tests can match the exact field; YAML `true` would otherwise pass as `1` |
 | 2026-10-18 | `model` and target `name` must match `[A-Za-z0-9_]+` | They become path parts (`artifacts/<model>/`, `baselines/<target>.json`) — stricter than Security.md's "no `/`, `\`, `..`" |
 | 2026-10-18 | `warmup` may be 0; all other counts ≥ 1; seeds ≥ 0; `noisy_cv_threshold` > 0; `dataset` ∈ {`imagenette2-160`, `synthetic`} | Data_Schema §2/§3 |
@@ -61,16 +67,17 @@
 ## Measured values (copy from real runs only)
 | Date | Run ID | Model | Variant | Metric | Value | Notes |
 |---|---|---|---|---|---|---|
-| | | | | | | |
+| 2026-10-18 | (manual, no run ID) | mobilenet_v3_small | onnx_fp32 vs torch_fp32 | parity on 32 eval images (seed 0), cpu_4t | max_abs 6.497e-05, mean_abs 6.902e-06, cosine 1.000000000, top-1 agree 1.0 | max \|logit\| 27.481; ONNX file 10.18 MB; legacy exporter, opset 17 |
+| 2026-10-18 | (manual, no run ID) | resnet18 | onnx_fp32 vs torch_fp32 | parity on 32 eval images (seed 0), cpu_4t | max_abs 1.717e-05, mean_abs 2.062e-06, cosine 1.000000000, top-1 agree 1.0 | max \|logit\| 32.224; ONNX file 46.75 MB; legacy exporter, opset 17 |
 
 ## Tolerances (set in Phase 4 from observed values)
-- FP32 parity `max_abs_err` tolerance: (initial 1e-3, not yet calibrated) — reason:
+- FP32 parity `max_abs_err` tolerance: **1e-3 (kept, calibrated 2026-10-18)** — reason: observed max 6.5e-5 (mobilenet) / 1.7e-5 (resnet18) on one 32-image batch at cpu_4t → ~15× / ~58× headroom for other thread counts, batch sizes and CPUs (CI); real conversion bugs (wrong preprocessing, broken op) produce errors ≳1e-2, so 1e-3 still catches them. `min_cosine` 0.9999 and `min_top1_agreement` 0.99 kept (observed 1.0; at n=32, 0.99 means any flip fails, correct for FP32).
 - INT8 `min_top1_agreement`: (initial 0.90, not yet calibrated) — reason:
 
 ## Unverified assumptions (check, then move to Decisions)
 - [ ] `ai-edge-torch` has no native Windows support (TRD)
 - [ ] `ai-edge-litert` is the correct interpreter package name and doesn't conflict with the torch pin
-- [ ] Best `torch.onnx.export` exporter mode (`dynamo=True/False`) for the pinned torch version
+- [x] Best `torch.onnx.export` exporter mode for torch 2.14.1 — **checked: `dynamo=False`** (see Decisions)
 - [x] Imagenette folder names match the WNID mapping in Phases.md Phase 3 — **checked: 9/10 match; mismatch logged in Open issues**
 - [ ] `onnxruntime.quantization.qdq_loss_debug` API (stretch S1)
 - [ ] Imagenette licence wording for the README
@@ -84,6 +91,8 @@
 - Phase 8 (TFLite) needs a Linux environment (WSL Ubuntu not installed).
 
 ## Session log (one line per session, newest first)
+- 2026-10-18 — Phase 4 done: `models.py` (+`tiny_cnn`), `export.py` (legacy exporter), `backends/` (base, torch, ort, registry); tests first. Validation `test_export.py test_backends.py`: 27 passed; fast suite 133 passed (3 deselected); slow model tests 2 passed; ruff clean. Measured coverage: backends 97–100%, export 100%, models 86% (uncovered = pretrained path, covered by slow tests). Real-model FP32 parity measured (see Measured values); FP32 tolerance kept at 1e-3.
+- 2026-10-18 — Phases 1–3 pushed to GitHub by user as `1c6b25b` (also contains `.ignore` and `.serena/` tool files); GitHub Actions `ci` on that push: success (54 s).
 - 2026-10-18 — Phase 3 done: `config.py` + 5 configs, `data.py`, `conftest.py` synthetic dataset; `.gitignore` += `*.pt`, `.env`. Validation: config+data 59 passed (1 data test deselected); real `[data]` test passed; `list_images` val = 3925, train = 9469; fast suite 100 passed; ruff clean. Measured coverage: config 98%, data 96%. Eval subset (seed 0, n=1000) label counts by ImageNet idx: 0:97, 217:94, 482:81, 491:95, 497:98, 566:107, 569:109, 571:110, 574:95, 701:114.
 - 2026-10-18 — Phase 2 done: `parity.py`, `bench.py` (stats), `results.py`, tests written first, plus import-isolation test. Validation: 31/31 passed; full suite 41 passed; ruff clean. Measured coverage: bench 100%, parity 100%, results 98% (uncovered: non-object JSON branches, lines 119/149).
 - 2026-10-18 — Phase 1 committed (`1325534`) on branch `main` (renamed from `master`).

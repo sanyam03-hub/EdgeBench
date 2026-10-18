@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import pytest
@@ -19,6 +20,14 @@ WNIDS = (
     "n03888257",
 )
 IMAGES_PER_CLASS = 3
+
+
+@pytest.fixture
+def tiny_cnn() -> Any:
+    """The seeded random-init tiny CNN (10 classes, 32x32 input); no download."""
+    from edgebench.models import load_model
+
+    return load_model("tiny_cnn")
 
 
 @pytest.fixture

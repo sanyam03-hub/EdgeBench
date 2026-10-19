@@ -1,0 +1,1061 @@
+{
+  "chosen_k": null,
+  "created_at": "2026-10-19T17:22:34Z",
+  "environment": {
+    "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "kernel": "10.0.26200",
+    "logical_cores": 12,
+    "os": "Windows",
+    "packages": {
+      "numpy": "2.4.6",
+      "onnx": "1.23.2",
+      "onnxruntime": "1.31.0",
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu"
+    },
+    "python": "3.11.4"
+  },
+  "excluded_nodes": null,
+  "model": "resnet18",
+  "n_eligible_nodes": 32,
+  "rankings": {
+    "local_sqnr": [
+      {
+        "node": "/layer2/layer2.0/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 28.244854811574285
+      },
+      {
+        "node": "/layer3/layer3.1/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 29.515670019489043
+      },
+      {
+        "node": "/layer3/layer3.0/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 29.696844905441232
+      },
+      {
+        "node": "/layer1/layer1.1/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 29.7808731748397
+      },
+      {
+        "node": "/layer1/layer1.0/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 30.50020841177269
+      },
+      {
+        "node": "/layer2/layer2.1/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 30.963454050207034
+      },
+      {
+        "node": "/layer4/layer4.0/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 31.561678599477897
+      },
+      {
+        "node": "/layer4/layer4.1/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 32.57166546510413
+      },
+      {
+        "node": "/layer4/layer4.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.39629714178467
+      },
+      {
+        "node": "/layer4/layer4.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.39629714178467
+      },
+      {
+        "node": "/layer4/layer4.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.671302243852395
+      },
+      {
+        "node": "/layer3/layer3.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.304982709516686
+      },
+      {
+        "node": "/layer1/layer1.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.45007075475693
+      },
+      {
+        "node": "/layer2/layer2.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.46053970901671
+      },
+      {
+        "node": "/layer3/layer3.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.72730026809651
+      },
+      {
+        "node": "/layer4/layer4.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.7330937113119
+      },
+      {
+        "node": "/layer3/layer3.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 35.932936607310836
+      },
+      {
+        "node": "/layer1/layer1.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 36.12382313156463
+      },
+      {
+        "node": "/layer4/layer4.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.32737928639323
+      },
+      {
+        "node": "/layer2/layer2.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.40191202208198
+      },
+      {
+        "node": "/layer3/layer3.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.49095533140915
+      },
+      {
+        "node": "/layer3/layer3.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.49095533140915
+      },
+      {
+        "node": "/layer2/layer2.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 36.69142753560606
+      },
+      {
+        "node": "/layer1/layer1.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.992256768574386
+      },
+      {
+        "node": "/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 37.48661399102402
+      },
+      {
+        "node": "/layer1/layer1.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 37.6171411346763
+      },
+      {
+        "node": "/maxpool/MaxPool",
+        "op_type": "MaxPool",
+        "source": "activation",
+        "sqnr_db": 37.98289837758102
+      },
+      {
+        "node": "/fc/Gemm",
+        "op_type": "Gemm",
+        "source": "weight",
+        "sqnr_db": 38.30329982181277
+      },
+      {
+        "node": "/layer2/layer2.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 38.42153715352639
+      },
+      {
+        "node": "/layer2/layer2.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 40.30014926403426
+      },
+      {
+        "node": "/conv1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 40.74715159500359
+      },
+      {
+        "node": "/Flatten",
+        "op_type": "Flatten",
+        "source": "activation",
+        "sqnr_db": 40.89334441209418
+      }
+    ],
+    "sensitivity": [
+      {
+        "node": "/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 10.427891620920885
+      },
+      {
+        "node": "/layer1/layer1.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 28.87705502022866
+      },
+      {
+        "node": "/layer1/layer1.0/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 29.85570225750997
+      },
+      {
+        "node": "/layer3/layer3.1/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 33.71118890329426
+      },
+      {
+        "node": "/fc/Gemm",
+        "op_type": "Gemm",
+        "source": "logits",
+        "sqnr_db": 34.38540014231974
+      },
+      {
+        "node": "/layer1/layer1.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 34.87288323739776
+      },
+      {
+        "node": "/layer3/layer3.0/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 34.9420057174325
+      },
+      {
+        "node": "/layer1/layer1.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 35.40797368809064
+      },
+      {
+        "node": "/layer4/layer4.0/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 35.67596197029903
+      },
+      {
+        "node": "/layer2/layer2.0/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 36.024919937209944
+      },
+      {
+        "node": "/layer1/layer1.1/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 36.536726136819915
+      },
+      {
+        "node": "/layer2/layer2.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 36.80261614523265
+      },
+      {
+        "node": "/layer3/layer3.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 36.958563636469705
+      },
+      {
+        "node": "/layer2/layer2.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 36.97269423992874
+      },
+      {
+        "node": "/layer3/layer3.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.2567379830752
+      },
+      {
+        "node": "/layer4/layer4.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.58259802132717
+      },
+      {
+        "node": "/layer4/layer4.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.872252482839876
+      },
+      {
+        "node": "/layer2/layer2.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.002810809219916
+      },
+      {
+        "node": "/layer2/layer2.1/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 38.03781077239966
+      },
+      {
+        "node": "/layer3/layer3.0/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.32311922275363
+      },
+      {
+        "node": "/layer4/layer4.0/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.76380747467462
+      },
+      {
+        "node": "/layer4/layer4.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.807745955800776
+      },
+      {
+        "node": "/layer3/layer3.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.955627445309304
+      },
+      {
+        "node": "/layer1/layer1.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 39.10062819519755
+      },
+      {
+        "node": "/layer2/layer2.1/conv1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 39.305746155178824
+      },
+      {
+        "node": "/layer2/layer2.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 40.63222483449087
+      },
+      {
+        "node": "/layer4/layer4.1/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 41.024158852003545
+      },
+      {
+        "node": "/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 43.00959105732894
+      },
+      {
+        "node": "/layer3/layer3.0/downsample/downsample.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 43.45284918095352
+      },
+      {
+        "node": "/layer4/layer4.1/conv2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 43.91080024664544
+      },
+      {
+        "node": "/Flatten",
+        "op_type": "Flatten",
+        "source": "logits",
+        "sqnr_db": 367.47474648280104
+      },
+      {
+        "node": "/maxpool/MaxPool",
+        "op_type": "MaxPool",
+        "source": "logits",
+        "sqnr_db": 367.47474648280104
+      }
+    ]
+  },
+  "report": null,
+  "schema": "edgebench.s1.v2",
+  "settings": {
+    "analysis_batch": 4,
+    "analysis_images": 32,
+    "calibration_images": 256,
+    "eval_seed": 0,
+    "ks": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_drop_pts": 1.0,
+    "n_report": 500,
+    "n_search": 500,
+    "random_seeds": 3,
+    "sensitivity": true,
+    "sweep": false,
+    "target": "cpu_4t"
+  },
+  "sweep": null,
+  "tensors": [
+    {
+      "consumers": [
+        "/fc/Gemm"
+      ],
+      "depth": 47,
+      "local_sqnr_db": 358.0642503343229,
+      "model_sqnr_db": 24.98141189410302,
+      "node": "/Flatten",
+      "op_type": "Flatten",
+      "tensor": "/Flatten_output_0"
+    },
+    {
+      "consumers": [
+        "/Flatten"
+      ],
+      "depth": 46,
+      "local_sqnr_db": 40.89334441209418,
+      "model_sqnr_db": 24.98141189410302,
+      "node": "/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.0/Add"
+      ],
+      "depth": 5,
+      "local_sqnr_db": 30.50020841177269,
+      "model_sqnr_db": 26.765774227783705,
+      "node": "/layer1/layer1.0/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer1/layer1.0/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.0/conv2/Conv"
+      ],
+      "depth": 3,
+      "local_sqnr_db": 34.45007075475693,
+      "model_sqnr_db": 29.139599129063956,
+      "node": "/layer1/layer1.0/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer1/layer1.0/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.1/conv1/Conv",
+        "/layer1/layer1.1/Add"
+      ],
+      "depth": 6,
+      "local_sqnr_db": 40.41878498928047,
+      "model_sqnr_db": 29.733068403443372,
+      "node": "/layer1/layer1.0/Add",
+      "op_type": "Add",
+      "tensor": "/layer1/layer1.0/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.1/Add"
+      ],
+      "depth": 10,
+      "local_sqnr_db": 29.7808731748397,
+      "model_sqnr_db": 22.214375995210503,
+      "node": "/layer1/layer1.1/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer1/layer1.1/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.1/conv2/Conv"
+      ],
+      "depth": 8,
+      "local_sqnr_db": 36.992256768574386,
+      "model_sqnr_db": 24.40171241557312,
+      "node": "/layer1/layer1.1/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer1/layer1.1/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.0/conv1/Conv",
+        "/layer2/layer2.0/downsample/downsample.0/Conv"
+      ],
+      "depth": 11,
+      "local_sqnr_db": 40.30014926403426,
+      "model_sqnr_db": 25.376739955915852,
+      "node": "/layer1/layer1.1/Add",
+      "op_type": "Add",
+      "tensor": "/layer1/layer1.1/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.0/Add"
+      ],
+      "depth": 15,
+      "local_sqnr_db": 30.911460645147137,
+      "model_sqnr_db": 21.9124535676969,
+      "node": "/layer2/layer2.0/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer2/layer2.0/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.0/Add"
+      ],
+      "depth": 16,
+      "local_sqnr_db": 28.244854811574285,
+      "model_sqnr_db": 21.412059946962753,
+      "node": "/layer2/layer2.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer2/layer2.0/downsample/downsample.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.0/conv2/Conv"
+      ],
+      "depth": 13,
+      "local_sqnr_db": 36.40191202208198,
+      "model_sqnr_db": 22.13494926349671,
+      "node": "/layer2/layer2.0/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer2/layer2.0/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.1/conv1/Conv",
+        "/layer2/layer2.1/Add"
+      ],
+      "depth": 17,
+      "local_sqnr_db": 37.28724501920893,
+      "model_sqnr_db": 22.476248698583806,
+      "node": "/layer2/layer2.0/Add",
+      "op_type": "Add",
+      "tensor": "/layer2/layer2.0/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.1/Add"
+      ],
+      "depth": 21,
+      "local_sqnr_db": 30.963454050207034,
+      "model_sqnr_db": 22.42770985705432,
+      "node": "/layer2/layer2.1/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer2/layer2.1/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer2/layer2.1/conv2/Conv"
+      ],
+      "depth": 19,
+      "local_sqnr_db": 34.46053970901671,
+      "model_sqnr_db": 20.939921789531013,
+      "node": "/layer2/layer2.1/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer2/layer2.1/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.0/conv1/Conv",
+        "/layer3/layer3.0/downsample/downsample.0/Conv"
+      ],
+      "depth": 22,
+      "local_sqnr_db": 36.49095533140915,
+      "model_sqnr_db": 21.702529394642713,
+      "node": "/layer2/layer2.1/Add",
+      "op_type": "Add",
+      "tensor": "/layer2/layer2.1/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.0/Add"
+      ],
+      "depth": 26,
+      "local_sqnr_db": 29.696844905441232,
+      "model_sqnr_db": 22.523811796440892,
+      "node": "/layer3/layer3.0/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer3/layer3.0/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.0/Add"
+      ],
+      "depth": 27,
+      "local_sqnr_db": 30.436077430116345,
+      "model_sqnr_db": 22.972400955879962,
+      "node": "/layer3/layer3.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer3/layer3.0/downsample/downsample.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.0/conv2/Conv"
+      ],
+      "depth": 24,
+      "local_sqnr_db": 37.928080124475386,
+      "model_sqnr_db": 22.12579269630876,
+      "node": "/layer3/layer3.0/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer3/layer3.0/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.1/conv1/Conv",
+        "/layer3/layer3.1/Add"
+      ],
+      "depth": 28,
+      "local_sqnr_db": 34.72730026809651,
+      "model_sqnr_db": 22.428496258702403,
+      "node": "/layer3/layer3.0/Add",
+      "op_type": "Add",
+      "tensor": "/layer3/layer3.0/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.1/Add"
+      ],
+      "depth": 32,
+      "local_sqnr_db": 29.515670019489043,
+      "model_sqnr_db": 23.489704645193118,
+      "node": "/layer3/layer3.1/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer3/layer3.1/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer3/layer3.1/conv2/Conv"
+      ],
+      "depth": 30,
+      "local_sqnr_db": 34.304982709516686,
+      "model_sqnr_db": 21.621876309596935,
+      "node": "/layer3/layer3.1/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer3/layer3.1/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.0/conv1/Conv",
+        "/layer4/layer4.0/downsample/downsample.0/Conv"
+      ],
+      "depth": 33,
+      "local_sqnr_db": 33.39629714178467,
+      "model_sqnr_db": 21.1562123293036,
+      "node": "/layer3/layer3.1/Add",
+      "op_type": "Add",
+      "tensor": "/layer3/layer3.1/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.0/Add"
+      ],
+      "depth": 37,
+      "local_sqnr_db": 32.24689131233765,
+      "model_sqnr_db": 22.532689266028182,
+      "node": "/layer4/layer4.0/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer4/layer4.0/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.0/Add"
+      ],
+      "depth": 38,
+      "local_sqnr_db": 31.561678599477897,
+      "model_sqnr_db": 22.222825424840018,
+      "node": "/layer4/layer4.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer4/layer4.0/downsample/downsample.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.0/conv2/Conv"
+      ],
+      "depth": 35,
+      "local_sqnr_db": 36.32737928639323,
+      "model_sqnr_db": 20.398530187556553,
+      "node": "/layer4/layer4.0/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer4/layer4.0/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.1/conv1/Conv",
+        "/layer4/layer4.1/Add"
+      ],
+      "depth": 39,
+      "local_sqnr_db": 33.671302243852395,
+      "model_sqnr_db": 19.815253065620343,
+      "node": "/layer4/layer4.0/Add",
+      "op_type": "Add",
+      "tensor": "/layer4/layer4.0/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.1/Add"
+      ],
+      "depth": 43,
+      "local_sqnr_db": 32.57166546510413,
+      "model_sqnr_db": 19.919077688413967,
+      "node": "/layer4/layer4.1/conv2/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer4/layer4.1/conv2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/layer4/layer4.1/conv2/Conv"
+      ],
+      "depth": 41,
+      "local_sqnr_db": 34.7330937113119,
+      "model_sqnr_db": 19.39145452259008,
+      "node": "/layer4/layer4.1/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/layer4/layer4.1/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/avgpool/GlobalAveragePool"
+      ],
+      "depth": 44,
+      "local_sqnr_db": 37.48661399102402,
+      "model_sqnr_db": 20.82340940207103,
+      "node": "/layer4/layer4.1/Add",
+      "op_type": "Add",
+      "tensor": "/layer4/layer4.1/relu_1/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/layer1/layer1.0/conv1/Conv",
+        "/layer1/layer1.0/Add"
+      ],
+      "depth": 2,
+      "local_sqnr_db": 374.23429966752565,
+      "model_sqnr_db": 37.20135373588925,
+      "node": "/maxpool/MaxPool",
+      "op_type": "MaxPool",
+      "tensor": "/maxpool/MaxPool_output_0"
+    },
+    {
+      "consumers": [
+        "/maxpool/MaxPool"
+      ],
+      "depth": 0,
+      "local_sqnr_db": 37.98289837758102,
+      "model_sqnr_db": 35.36966309772582,
+      "node": "/conv1/Conv",
+      "op_type": "Conv",
+      "tensor": "/relu/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/conv1/Conv"
+      ],
+      "depth": null,
+      "local_sqnr_db": 46.40898499581923,
+      "model_sqnr_db": 46.40898499581923,
+      "node": null,
+      "op_type": null,
+      "tensor": "input"
+    },
+    {
+      "consumers": [],
+      "depth": 48,
+      "local_sqnr_db": 36.231442031107605,
+      "model_sqnr_db": 23.290726492299495,
+      "node": "/fc/Gemm",
+      "op_type": "Gemm",
+      "tensor": "logits"
+    }
+  ],
+  "weights": [
+    {
+      "node": "/fc/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 52.86778899896681,
+      "weight": "fc.bias"
+    },
+    {
+      "node": "/fc/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 38.30329982181277,
+      "weight": "fc.weight"
+    },
+    {
+      "node": "/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.74715159500359,
+      "weight": "onnx::Conv_193"
+    },
+    {
+      "node": "/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 94.25598344511002,
+      "weight": "onnx::Conv_194"
+    },
+    {
+      "node": "/layer1/layer1.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.12382313156463,
+      "weight": "onnx::Conv_196"
+    },
+    {
+      "node": "/layer1/layer1.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 97.81791113394993,
+      "weight": "onnx::Conv_197"
+    },
+    {
+      "node": "/layer1/layer1.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 38.82668645519375,
+      "weight": "onnx::Conv_199"
+    },
+    {
+      "node": "/layer1/layer1.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 91.87906145826955,
+      "weight": "onnx::Conv_200"
+    },
+    {
+      "node": "/layer1/layer1.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.6171411346763,
+      "weight": "onnx::Conv_202"
+    },
+    {
+      "node": "/layer1/layer1.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 97.50905787993125,
+      "weight": "onnx::Conv_203"
+    },
+    {
+      "node": "/layer1/layer1.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 38.78034153824182,
+      "weight": "onnx::Conv_205"
+    },
+    {
+      "node": "/layer1/layer1.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 89.75672574378594,
+      "weight": "onnx::Conv_206"
+    },
+    {
+      "node": "/layer2/layer2.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 38.42153715352639,
+      "weight": "onnx::Conv_208"
+    },
+    {
+      "node": "/layer2/layer2.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 91.87668578797683,
+      "weight": "onnx::Conv_209"
+    },
+    {
+      "node": "/layer2/layer2.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.71796646021367,
+      "weight": "onnx::Conv_211"
+    },
+    {
+      "node": "/layer2/layer2.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 90.98854293054768,
+      "weight": "onnx::Conv_212"
+    },
+    {
+      "node": "/layer2/layer2.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.57082464926904,
+      "weight": "onnx::Conv_214"
+    },
+    {
+      "node": "/layer2/layer2.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 85.10268456102416,
+      "weight": "onnx::Conv_215"
+    },
+    {
+      "node": "/layer2/layer2.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.69142753560606,
+      "weight": "onnx::Conv_217"
+    },
+    {
+      "node": "/layer2/layer2.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 91.07593979524738,
+      "weight": "onnx::Conv_218"
+    },
+    {
+      "node": "/layer2/layer2.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 38.417011494361645,
+      "weight": "onnx::Conv_220"
+    },
+    {
+      "node": "/layer2/layer2.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 88.76759231570831,
+      "weight": "onnx::Conv_221"
+    },
+    {
+      "node": "/layer3/layer3.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.483126726141045,
+      "weight": "onnx::Conv_223"
+    },
+    {
+      "node": "/layer3/layer3.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 92.20890430101142,
+      "weight": "onnx::Conv_224"
+    },
+    {
+      "node": "/layer3/layer3.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 35.932936607310836,
+      "weight": "onnx::Conv_226"
+    },
+    {
+      "node": "/layer3/layer3.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 90.88675975916442,
+      "weight": "onnx::Conv_227"
+    },
+    {
+      "node": "/layer3/layer3.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.594339441626914,
+      "weight": "onnx::Conv_229"
+    },
+    {
+      "node": "/layer3/layer3.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 83.66567214881323,
+      "weight": "onnx::Conv_230"
+    },
+    {
+      "node": "/layer3/layer3.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.13795064954863,
+      "weight": "onnx::Conv_232"
+    },
+    {
+      "node": "/layer3/layer3.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 93.96634682775593,
+      "weight": "onnx::Conv_233"
+    },
+    {
+      "node": "/layer3/layer3.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.57599574010463,
+      "weight": "onnx::Conv_235"
+    },
+    {
+      "node": "/layer3/layer3.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 87.75599058801957,
+      "weight": "onnx::Conv_236"
+    },
+    {
+      "node": "/layer4/layer4.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.94671667035828,
+      "weight": "onnx::Conv_238"
+    },
+    {
+      "node": "/layer4/layer4.0/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 92.28664122560959,
+      "weight": "onnx::Conv_239"
+    },
+    {
+      "node": "/layer4/layer4.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.573915837998946,
+      "weight": "onnx::Conv_241"
+    },
+    {
+      "node": "/layer4/layer4.0/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 90.47790677886312,
+      "weight": "onnx::Conv_242"
+    },
+    {
+      "node": "/layer4/layer4.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 39.64471086902988,
+      "weight": "onnx::Conv_244"
+    },
+    {
+      "node": "/layer4/layer4.0/downsample/downsample.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 80.82254602050259,
+      "weight": "onnx::Conv_245"
+    },
+    {
+      "node": "/layer4/layer4.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.98845440371092,
+      "weight": "onnx::Conv_247"
+    },
+    {
+      "node": "/layer4/layer4.1/conv1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 92.20181319848115,
+      "weight": "onnx::Conv_248"
+    },
+    {
+      "node": "/layer4/layer4.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.95503525039432,
+      "weight": "onnx::Conv_250"
+    },
+    {
+      "node": "/layer4/layer4.1/conv2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 86.07179363461675,
+      "weight": "onnx::Conv_251"
+    }
+  ]
+}

@@ -12,7 +12,12 @@ from edgebench.data import ImagenetteCalibrationReader, list_images
 from edgebench.errors import QuantizationError
 from edgebench.export import INPUT_NAME, export_onnx
 from edgebench.models import LoadedModel
-from edgebench.quantize import quantize_dynamic_int8, quantize_static_int8
+from edgebench.quantize import (
+    name_unnamed_nodes,
+    preprocess,
+    quantize_dynamic_int8,
+    quantize_static_int8,
+)
 
 N_CALIB_IMAGES = 8
 CALIB_BATCH = 4
@@ -97,6 +102,56 @@ def test_static_rejects_unknown_calibrate_method(
 ) -> None:
     with pytest.raises(QuantizationError, match="magic"):
         quantize_static_int8(fp32_path, tmp_path / "q.onnx", reader, calibrate_method="magic")
+
+
+def test_name_unnamed_nodes_keeps_names_and_is_deterministic() -> None:
+    nodes = [
+        onnx.helper.make_node("Relu", ["x"], ["a"], name="keep"),
+        onnx.helper.make_node("Relu", ["a"], ["b"]),
+        onnx.helper.make_node("Relu", ["b"], ["y"]),
+    ]
+    vi = [onnx.helper.make_tensor_value_info(n, onnx.TensorProto.FLOAT, [1]) for n in "xy"]
+    model = onnx.helper.make_model(onnx.helper.make_graph(nodes, "g", vi[:1], vi[1:]))
+    names = [node.name for node in name_unnamed_nodes(model).graph.node]
+    assert names[0] == "keep"
+    assert all(names) and len(set(names)) == 3
+    again = onnx.helper.make_model(onnx.helper.make_graph(nodes, "g", vi[:1], vi[1:]))
+    assert [node.name for node in name_unnamed_nodes(again).graph.node] == names
+
+
+def test_preprocess_names_every_node_deterministically(fp32_path: Path, tmp_path: Path) -> None:
+    first = [n.name for n in onnx.load(str(preprocess(fp32_path, tmp_path / "a.onnx"))).graph.node]
+    second = [n.name for n in onnx.load(str(preprocess(fp32_path, tmp_path / "b.onnx"))).graph.node]
+    assert first == second
+    assert all(first) and len(set(first)) == len(first)
+
+
+def _conv_weight_is_dequantized(path: Path) -> dict[str, bool]:
+    """Conv node name -> whether its weight input comes from a DequantizeLinear node."""
+    graph = onnx.load(str(path)).graph
+    dq_outputs = {n.output[0] for n in graph.node if n.op_type == "DequantizeLinear"}
+    return {n.name: n.input[1] in dq_outputs for n in graph.node if n.op_type == "Conv"}
+
+
+def test_static_nodes_to_exclude_keeps_that_node_float(
+    fp32_path: Path, tmp_path: Path, reader: ImagenetteCalibrationReader
+) -> None:
+    pre = onnx.load(str(preprocess(fp32_path, tmp_path / "pre.onnx")))
+    convs = [n.name for n in pre.graph.node if n.op_type == "Conv"]
+    assert len(convs) >= 2
+    out = quantize_static_int8(fp32_path, tmp_path / "q.onnx", reader, nodes_to_exclude=[convs[0]])
+    dequantized = _conv_weight_is_dequantized(out)
+    assert dequantized[convs[0]] is False
+    assert all(dequantized[name] for name in convs[1:])
+
+
+def test_static_unknown_node_to_exclude_raises(
+    fp32_path: Path, tmp_path: Path, reader: ImagenetteCalibrationReader
+) -> None:
+    with pytest.raises(QuantizationError, match="no_such_node"):
+        quantize_static_int8(
+            fp32_path, tmp_path / "q.onnx", reader, nodes_to_exclude=["no_such_node"]
+        )
 
 
 @pytest.mark.parametrize("which", ["dynamic", "static"])

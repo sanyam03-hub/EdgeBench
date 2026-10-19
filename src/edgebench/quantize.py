@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
 from typing import TypeVar
 
@@ -61,6 +62,44 @@ def quantize_dynamic_int8(fp32_path: Path, out_path: Path) -> Path:
     return out_path
 
 
+def name_unnamed_nodes(model: onnx.ModelProto) -> onnx.ModelProto:
+    """Give every unnamed node the deterministic name ``<op_type>:<first output>``, in place.
+
+    ORT's ``nodes_to_exclude`` matches node names, so an unnamed node (e.g. the HardSigmoid/Mul
+    pairs of MobileNetV3's Hardswish) could otherwise never be kept in FP32.
+    """
+    taken = {node.name for node in model.graph.node if node.name}
+    for node in model.graph.node:
+        if node.name:
+            continue
+        base = f"{node.op_type}:{node.output[0]}"
+        name, suffix = base, 1
+        while name in taken:
+            name, suffix = f"{base}_{suffix}", suffix + 1
+        node.name = name
+        taken.add(name)
+    return model
+
+
+def preprocess(fp32_path: Path, out_path: Path) -> Path:
+    """ORT quantization pre-processing (shape inference + graph optimization), then name all nodes.
+
+    Deterministic: the same FP32 file always gives the same node names, so names found by the
+    per-layer analysis can be passed back as ``nodes_to_exclude``.
+
+    Raises:
+        QuantizationError: Missing/invalid FP32 model or pre-processing failed.
+    """
+    _require_file(fp32_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        quant_pre_process(fp32_path, out_path)
+        onnx.save(name_unnamed_nodes(onnx.load(str(out_path))), str(out_path))
+    except _QUANT_ERRORS as exc:
+        raise _error("Pre-processing for", fp32_path, exc) from exc
+    return out_path
+
+
 def quantize_static_int8(
     fp32_path: Path,
     out_path: Path,
@@ -70,6 +109,7 @@ def quantize_static_int8(
     calibrate_method: str = "minmax",
     activation_type: str = "quint8",
     weight_type: str = "qint8",
+    nodes_to_exclude: Sequence[str] = (),
 ) -> Path:
     """Pre-process, calibrate and quantize to a QDQ INT8 model.
 
@@ -81,19 +121,24 @@ def quantize_static_int8(
         calibrate_method: ``minmax`` | ``entropy`` | ``percentile``.
         activation_type: ``quint8`` | ``qint8``.
         weight_type: ``quint8`` | ``qint8``.
+        nodes_to_exclude: Node names (as named by ``preprocess``) to keep in FP32.
 
     Raises:
-        QuantizationError: Unknown option, missing model, or ORT pre-processing/quantization failed.
+        QuantizationError: Unknown option or node name, missing model, or ORT
+            pre-processing/quantization failed.
     """
     method = _lookup(CALIBRATE_METHODS, calibrate_method, "calibrate_method")
     act_type = _lookup(QUANT_TYPES, activation_type, "activation_type")
     w_type = _lookup(QUANT_TYPES, weight_type, "weight_type")
-    _require_file(fp32_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="edgebench_quant_", ignore_cleanup_errors=True) as tmp:
-        preprocessed = Path(tmp) / "preprocessed.onnx"
+        preprocessed = preprocess(fp32_path, Path(tmp) / "preprocessed.onnx")
+        # ORT silently ignores unknown names, which would quietly quantize everything.
+        known = {node.name for node in onnx.load(str(preprocessed)).graph.node}
+        unknown = sorted(set(nodes_to_exclude) - known)
+        if unknown:
+            raise QuantizationError(f"nodes_to_exclude not found in {fp32_path}: {unknown}")
         try:
-            quant_pre_process(fp32_path, preprocessed)
             quantize_static(
                 preprocessed,
                 out_path,
@@ -103,6 +148,7 @@ def quantize_static_int8(
                 activation_type=act_type,
                 weight_type=w_type,
                 calibrate_method=method,
+                nodes_to_exclude=list(nodes_to_exclude),
             )
         except _QUANT_ERRORS as exc:
             raise _error("Static", fp32_path, exc) from exc

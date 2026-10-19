@@ -1,0 +1,3838 @@
+{
+  "chosen_k": {
+    "local_sqnr": 0,
+    "sensitivity": 16
+  },
+  "created_at": "2026-10-19T17:08:40Z",
+  "environment": {
+    "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "kernel": "10.0.26200",
+    "logical_cores": 12,
+    "os": "Windows",
+    "packages": {
+      "numpy": "2.4.6",
+      "onnx": "1.23.2",
+      "onnxruntime": "1.31.0",
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu"
+    },
+    "python": "3.11.4"
+  },
+  "excluded_nodes": {
+    "local_sqnr": [],
+    "sensitivity": [
+      "/features/features.0/features.0.0/Conv",
+      "/features/features.1/block/block.0/block.0.0/Conv",
+      "Mul:/features/features.0/features.0.2/HardSwish_output_0",
+      "/features/features.3/block/block.0/block.0.0/Conv",
+      "/features/features.2/block/block.0/block.0.0/Conv",
+      "/features/features.2/block/block.1/block.1.0/Conv",
+      "/features/features.1/block/block.2/block.2.0/Conv",
+      "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0",
+      "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0",
+      "/features/features.4/block/block.1/block.1.0/Conv",
+      "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0",
+      "/features/features.1/block/block.1/Mul",
+      "/features/features.4/block/block.0/block.0.0/Conv",
+      "/features/features.7/block/block.1/block.1.0/Conv",
+      "/features/features.7/block/block.0/block.0.0/Conv",
+      "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0"
+    ]
+  },
+  "model": "mobilenet_v3_small",
+  "n_eligible_nodes": 127,
+  "rankings": {
+    "local_sqnr": [
+      {
+        "node": "/features/features.11/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 15.289974799634047
+      },
+      {
+        "node": "/features/features.10/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 19.966944519204176
+      },
+      {
+        "node": "/features/features.11/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 21.156710663480247
+      },
+      {
+        "node": "/features/features.11/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 21.156710663480247
+      },
+      {
+        "node": "/features/features.11/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 23.982515329031703
+      },
+      {
+        "node": "/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 23.99928516547179
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_15_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 24.333761005149537
+      },
+      {
+        "node": "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 24.333761005149537
+      },
+      {
+        "node": "/features/features.8/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 25.82803966366784
+      },
+      {
+        "node": "/features/features.8/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 25.82803966366784
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 26.166284888784993
+      },
+      {
+        "node": "Mul:/features/features.0/features.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 26.166284888784993
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_16_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 26.364984569644342
+      },
+      {
+        "node": "Mul:/features/features.12/features.12.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 26.364984569644342
+      },
+      {
+        "node": "/features/features.5/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 26.459246828900756
+      },
+      {
+        "node": "/features/features.5/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 26.459246828900756
+      },
+      {
+        "node": "/features/features.10/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 26.9727442651552
+      },
+      {
+        "node": "/features/features.7/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 27.591390547632734
+      },
+      {
+        "node": "/features/features.7/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 27.591390547632734
+      },
+      {
+        "node": "/features/features.10/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 28.22423499265037
+      },
+      {
+        "node": "/features/features.10/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 28.22423499265037
+      },
+      {
+        "node": "/features/features.12/features.12.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 28.32732470009432
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_7_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 28.507649772007476
+      },
+      {
+        "node": "Mul:/features/features.7/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 28.507649772007476
+      },
+      {
+        "node": "/features/features.2/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 28.69939345284726
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_3_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 28.715698718180093
+      },
+      {
+        "node": "Mul:/features/features.5/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 28.715698718180093
+      },
+      {
+        "node": "/features/features.8/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 28.932593110398976
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_9_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 29.15688472249464
+      },
+      {
+        "node": "Mul:/features/features.8/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 29.15688472249464
+      },
+      {
+        "node": "/features/features.9/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 29.458715439590456
+      },
+      {
+        "node": "/features/features.6/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 29.516567833866254
+      },
+      {
+        "node": "/features/features.6/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 29.516567833866254
+      },
+      {
+        "node": "/features/features.11/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 29.53993261183255
+      },
+      {
+        "node": "/features/features.10/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 29.60560709704584
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_12_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 29.608123450769448
+      },
+      {
+        "node": "Mul:/features/features.10/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 29.608123450769448
+      },
+      {
+        "node": "/features/features.8/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 29.650267543533133
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_13_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 29.68810316815004
+      },
+      {
+        "node": "Mul:/features/features.10/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 29.68810316815004
+      },
+      {
+        "node": "/features/features.1/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 29.95737070652281
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_5_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 30.064615174284846
+      },
+      {
+        "node": "Mul:/features/features.6/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 30.064615174284846
+      },
+      {
+        "node": "/features/features.5/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 30.226502108745716
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_11_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 30.283405690917405
+      },
+      {
+        "node": "Mul:/features/features.9/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 30.283405690917405
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_6_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 30.622486900792122
+      },
+      {
+        "node": "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 30.622486900792122
+      },
+      {
+        "node": "/features/features.9/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 30.731858659180077
+      },
+      {
+        "node": "/features/features.9/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 30.731858659180077
+      },
+      {
+        "node": "/features/features.3/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 30.949456188324255
+      },
+      {
+        "node": "/features/features.3/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 30.949456188324255
+      },
+      {
+        "node": "/features/features.8/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 31.015355542130912
+      },
+      {
+        "node": "/features/features.5/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 31.335429403258168
+      },
+      {
+        "node": "/features/features.6/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 31.491505662898497
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_2_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 31.75310047973519
+      },
+      {
+        "node": "Mul:/features/features.5/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 31.75310047973519
+      },
+      {
+        "node": "/features/features.6/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 31.801192851458595
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_14_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 31.995987985336953
+      },
+      {
+        "node": "Mul:/features/features.11/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 31.995987985336953
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_8_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 32.17997217171105
+      },
+      {
+        "node": "Mul:/features/features.8/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 32.17997217171105
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_0_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 32.23304124566417
+      },
+      {
+        "node": "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 32.23304124566417
+      },
+      {
+        "node": "/features/features.10/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 32.78697143592374
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_1_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 33.046419245511814
+      },
+      {
+        "node": "Mul:/features/features.4/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 33.046419245511814
+      },
+      {
+        "node": "/features/features.7/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.1032178181665
+      },
+      {
+        "node": "/features/features.2/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.24706359348307
+      },
+      {
+        "node": "/features/features.11/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.35583892038977
+      },
+      {
+        "node": "/features/features.6/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 33.46117018985289
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_10_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 33.660572734105685
+      },
+      {
+        "node": "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 33.660572734105685
+      },
+      {
+        "node": "/features/features.9/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 34.16823806295964
+      },
+      {
+        "node": "/features/features.6/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 34.23706004384604
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_4_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 34.56497895991477
+      },
+      {
+        "node": "Mul:/features/features.6/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 34.56497895991477
+      },
+      {
+        "node": "/Flatten",
+        "op_type": "Flatten",
+        "source": "activation",
+        "sqnr_db": 35.013298042756155
+      },
+      {
+        "node": "/features/features.9/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 35.2137958130178
+      },
+      {
+        "node": "/features/features.4/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 35.375273006422994
+      },
+      {
+        "node": "/features/features.8/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 35.60259252531085
+      },
+      {
+        "node": "/features/features.10/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 35.95921239341687
+      },
+      {
+        "node": "/classifier/classifier.3/Gemm",
+        "op_type": "Gemm",
+        "source": "activation",
+        "sqnr_db": 35.97499595222945
+      },
+      {
+        "node": "/features/features.5/Add",
+        "op_type": "Add",
+        "source": "activation",
+        "sqnr_db": 35.98198256065593
+      },
+      {
+        "node": "/features/features.7/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 36.794117768254296
+      },
+      {
+        "node": "/features/features.7/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.84595165685963
+      },
+      {
+        "node": "/features/features.11/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 36.92726805341316
+      },
+      {
+        "node": "/features/features.5/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 36.937381662333266
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_17_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 36.98982719194568
+      },
+      {
+        "node": "Mul:/classifier/classifier.1/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 36.98982719194568
+      },
+      {
+        "node": "/features/features.6/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 37.28122423959889
+      },
+      {
+        "node": "/features/features.4/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 37.370633387624814
+      },
+      {
+        "node": "/features/features.4/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 37.53087116881477
+      },
+      {
+        "node": "/features/features.4/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 37.53087116881477
+      },
+      {
+        "node": "/features/features.7/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 37.67543558658091
+      },
+      {
+        "node": "/features/features.2/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 37.73331172976953
+      },
+      {
+        "node": "/features/features.5/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 38.69217444983505
+      },
+      {
+        "node": "/features/features.9/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 38.99051744362973
+      },
+      {
+        "node": "/features/features.3/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 39.06083760037117
+      },
+      {
+        "node": "/features/features.6/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 39.06220800155188
+      },
+      {
+        "node": "/features/features.1/block/block.1/Mul",
+        "op_type": "Mul",
+        "source": "activation",
+        "sqnr_db": 39.348570301001686
+      },
+      {
+        "node": "/features/features.1/block/block.1/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "activation",
+        "sqnr_db": 39.348570301001686
+      },
+      {
+        "node": "/features/features.8/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 39.66233278449959
+      },
+      {
+        "node": "/features/features.4/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 39.872954458219766
+      },
+      {
+        "node": "/features/features.5/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 40.7579240008677
+      },
+      {
+        "node": "/features/features.9/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 40.944845406290554
+      },
+      {
+        "node": "/features/features.10/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 40.96146070574059
+      },
+      {
+        "node": "/classifier/classifier.0/Gemm",
+        "op_type": "Gemm",
+        "source": "weight",
+        "sqnr_db": 41.18618069213126
+      },
+      {
+        "node": "/features/features.11/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 41.408142377572126
+      },
+      {
+        "node": "/features/features.4/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 42.32993877085872
+      },
+      {
+        "node": "/features/features.9/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 42.45773985402205
+      },
+      {
+        "node": "/features/features.10/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 42.47951826906778
+      },
+      {
+        "node": "/features/features.3/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 42.83072831306461
+      },
+      {
+        "node": "/features/features.4/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 42.85223807484738
+      },
+      {
+        "node": "/features/features.1/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 42.91037696597289
+      },
+      {
+        "node": "/features/features.11/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 43.98089667733209
+      },
+      {
+        "node": "/features/features.0/features.0.0/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 44.23084991321802
+      },
+      {
+        "node": "/features/features.8/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 44.39953219673424
+      },
+      {
+        "node": "/features/features.1/block/block.1/fc1/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 45.20613297508853
+      },
+      {
+        "node": "/features/features.5/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 45.610120313778005
+      },
+      {
+        "node": "/features/features.6/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 46.02377925719192
+      },
+      {
+        "node": "/features/features.8/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 46.51132553107877
+      },
+      {
+        "node": "/features/features.7/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 46.51778268878891
+      },
+      {
+        "node": "/features/features.1/block/block.1/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 47.406290121399735
+      },
+      {
+        "node": "/features/features.7/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "activation",
+        "sqnr_db": 48.78615611240307
+      },
+      {
+        "node": "/features/features.4/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "activation",
+        "sqnr_db": 64.40646562900322
+      },
+      {
+        "node": "/features/features.1/block/block.1/fc2/Conv",
+        "op_type": "Conv",
+        "source": "weight",
+        "sqnr_db": 102.69674421081743
+      }
+    ],
+    "sensitivity": [
+      {
+        "node": "/features/features.0/features.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": -0.08719790542484962
+      },
+      {
+        "node": "/features/features.1/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 0.0643997582027661
+      },
+      {
+        "node": "Mul:/features/features.0/features.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 0.10406415538764097
+      },
+      {
+        "node": "/features/features.3/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 5.089147247937379
+      },
+      {
+        "node": "/features/features.2/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 14.039265563882406
+      },
+      {
+        "node": "/features/features.2/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 18.950310613041612
+      },
+      {
+        "node": "/features/features.1/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 23.15436456025006
+      },
+      {
+        "node": "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 23.354433497252277
+      },
+      {
+        "node": "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 23.391323534439007
+      },
+      {
+        "node": "/features/features.4/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 23.554848947263125
+      },
+      {
+        "node": "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 23.636594471814725
+      },
+      {
+        "node": "/features/features.1/block/block.1/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 23.99407153709494
+      },
+      {
+        "node": "/features/features.4/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 24.285946837550068
+      },
+      {
+        "node": "/features/features.7/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 24.595627580234897
+      },
+      {
+        "node": "/features/features.7/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 24.681025427397984
+      },
+      {
+        "node": "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 24.89495908990936
+      },
+      {
+        "node": "Mul:/features/features.5/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 26.591150040183543
+      },
+      {
+        "node": "Mul:/features/features.8/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 26.845949411894004
+      },
+      {
+        "node": "Mul:/features/features.5/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 27.16307204501502
+      },
+      {
+        "node": "/features/features.1/block/block.1/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 27.291778406884983
+      },
+      {
+        "node": "/features/features.9/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 28.503018780298888
+      },
+      {
+        "node": "/features/features.2/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 28.58276158321601
+      },
+      {
+        "node": "Mul:/features/features.9/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 28.703392255371355
+      },
+      {
+        "node": "/features/features.5/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 28.77811682522218
+      },
+      {
+        "node": "/features/features.5/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 28.888125768830363
+      },
+      {
+        "node": "/features/features.11/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 28.927702249353132
+      },
+      {
+        "node": "Mul:/features/features.10/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 29.331047214238932
+      },
+      {
+        "node": "/features/features.10/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 29.434895866246347
+      },
+      {
+        "node": "Mul:/features/features.8/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 29.862621933335337
+      },
+      {
+        "node": "/features/features.10/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 29.899746037889663
+      },
+      {
+        "node": "/features/features.8/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 29.915610312541162
+      },
+      {
+        "node": "/features/features.11/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 30.232688032961946
+      },
+      {
+        "node": "Mul:/features/features.7/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 30.30985478502585
+      },
+      {
+        "node": "/features/features.9/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 30.386278258258685
+      },
+      {
+        "node": "Mul:/features/features.4/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 30.54170287866926
+      },
+      {
+        "node": "/features/features.5/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 30.730464451874276
+      },
+      {
+        "node": "/features/features.11/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 31.02968615655927
+      },
+      {
+        "node": "/features/features.5/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 31.051130624359068
+      },
+      {
+        "node": "/features/features.6/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 31.076332213090158
+      },
+      {
+        "node": "/features/features.8/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 31.096560101326986
+      },
+      {
+        "node": "/features/features.10/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 31.244027092258193
+      },
+      {
+        "node": "Mul:/features/features.6/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 31.44684886463743
+      },
+      {
+        "node": "Mul:/features/features.6/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 31.515876066050453
+      },
+      {
+        "node": "/features/features.6/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 31.54932673059532
+      },
+      {
+        "node": "/features/features.10/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 31.901546435688783
+      },
+      {
+        "node": "Mul:/features/features.10/block/block.1/block.1.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 32.53283508430985
+      },
+      {
+        "node": "/features/features.6/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 32.7576224868542
+      },
+      {
+        "node": "/features/features.7/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 32.98742548073385
+      },
+      {
+        "node": "/features/features.8/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 33.031362114329845
+      },
+      {
+        "node": "/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 33.122842677944476
+      },
+      {
+        "node": "Mul:/features/features.11/block/block.0/block.0.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 33.25595703434988
+      },
+      {
+        "node": "/features/features.9/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 33.29636968134955
+      },
+      {
+        "node": "/features/features.11/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 33.41642135013974
+      },
+      {
+        "node": "/features/features.3/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 33.42520040192196
+      },
+      {
+        "node": "/features/features.3/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 33.50599789736887
+      },
+      {
+        "node": "/features/features.9/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 34.02450496869555
+      },
+      {
+        "node": "/features/features.6/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 34.177512775211135
+      },
+      {
+        "node": "/features/features.7/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 34.746534319465184
+      },
+      {
+        "node": "/features/features.8/block/block.0/block.0.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 35.24789011126272
+      },
+      {
+        "node": "/features/features.4/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 35.31438137244514
+      },
+      {
+        "node": "/features/features.11/block/block.1/block.1.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 35.58824512178885
+      },
+      {
+        "node": "/features/features.12/features.12.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 35.85348966745066
+      },
+      {
+        "node": "/features/features.4/block/block.2/Mul",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 36.32303046226906
+      },
+      {
+        "node": "/features/features.3/block/block.2/block.2.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.11789682020884
+      },
+      {
+        "node": "Mul:/features/features.12/features.12.2/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 37.23371043040909
+      },
+      {
+        "node": "/features/features.6/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.25931428995033
+      },
+      {
+        "node": "/features/features.9/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.502147686633194
+      },
+      {
+        "node": "/features/features.8/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 37.68349977504451
+      },
+      {
+        "node": "/features/features.10/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 37.84380820951825
+      },
+      {
+        "node": "/features/features.4/block/block.2/avgpool/GlobalAveragePool",
+        "op_type": "GlobalAveragePool",
+        "source": "logits",
+        "sqnr_db": 37.966527195311286
+      },
+      {
+        "node": "/features/features.7/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.072339571550856
+      },
+      {
+        "node": "/classifier/classifier.0/Gemm",
+        "op_type": "Gemm",
+        "source": "logits",
+        "sqnr_db": 38.47562834946776
+      },
+      {
+        "node": "/features/features.11/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 38.76360291885325
+      },
+      {
+        "node": "/classifier/classifier.3/Gemm",
+        "op_type": "Gemm",
+        "source": "logits",
+        "sqnr_db": 39.2832539467325
+      },
+      {
+        "node": "/features/features.8/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 39.920376498805496
+      },
+      {
+        "node": "/features/features.11/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 39.92207831165516
+      },
+      {
+        "node": "/features/features.10/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 39.98236630666981
+      },
+      {
+        "node": "/features/features.6/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 40.12857783875347
+      },
+      {
+        "node": "/features/features.10/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 40.4265896892429
+      },
+      {
+        "node": "/features/features.5/block/block.3/block.3.0/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 40.60539929811554
+      },
+      {
+        "node": "/features/features.11/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 40.81793852269755
+      },
+      {
+        "node": "/features/features.5/Add",
+        "op_type": "Add",
+        "source": "logits",
+        "sqnr_db": 41.65442729698459
+      },
+      {
+        "node": "/features/features.1/block/block.1/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 41.82207222368143
+      },
+      {
+        "node": "/features/features.10/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 42.40008411792619
+      },
+      {
+        "node": "Mul:/classifier/classifier.1/HardSwish_output_0",
+        "op_type": "Mul",
+        "source": "logits",
+        "sqnr_db": 42.970235495120136
+      },
+      {
+        "node": "/features/features.9/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 43.8841441604334
+      },
+      {
+        "node": "/features/features.5/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 45.448822092123805
+      },
+      {
+        "node": "/features/features.6/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 45.50401770889202
+      },
+      {
+        "node": "/features/features.8/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 45.54029878296522
+      },
+      {
+        "node": "/features/features.9/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 45.98381551332514
+      },
+      {
+        "node": "/features/features.6/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 46.36525025049784
+      },
+      {
+        "node": "/features/features.5/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 46.86015836123118
+      },
+      {
+        "node": "/features/features.4/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 47.825921174832374
+      },
+      {
+        "node": "/features/features.8/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 49.09277120018685
+      },
+      {
+        "node": "/features/features.7/block/block.2/fc2/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 54.327776020919885
+      },
+      {
+        "node": "/features/features.7/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 57.735355922512525
+      },
+      {
+        "node": "/Flatten",
+        "op_type": "Flatten",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.1/block/block.1/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.1/block/block.1/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.10/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.11/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.4/block/block.2/fc1/Conv",
+        "op_type": "Conv",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.4/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.5/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.6/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.7/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.8/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "/features/features.9/block/block.2/scale_activation/HardSigmoid",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_0_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_10_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_11_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_12_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_13_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_14_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_15_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_16_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_17_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_1_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_2_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_3_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_4_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_5_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_6_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_7_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_8_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      },
+      {
+        "node": "HardSigmoid:_inlfunc_HardSwish_token_9_HS_X",
+        "op_type": "HardSigmoid",
+        "source": "logits",
+        "sqnr_db": 372.7706081948985
+      }
+    ]
+  },
+  "report": {
+    "fp32": {
+      "latency_b1": {
+        "cv": 0.22361934821572135,
+        "iqr_ms": 0.506475,
+        "mean_ms": 1.3670025,
+        "n": 200,
+        "noisy": true,
+        "p50_ms": 1.2502,
+        "p90_ms": 1.71862,
+        "p99_ms": 2.3320349999999985,
+        "std_ms": 0.3056882080592616
+      },
+      "size_mb": 10.181054,
+      "top1": 97.2
+    },
+    "int8": {
+      "latency_b1": {
+        "cv": 0.08583089123244755,
+        "iqr_ms": 0.16974999999999985,
+        "mean_ms": 1.932536,
+        "n": 200,
+        "noisy": false,
+        "p50_ms": 1.8816,
+        "p90_ms": 2.12702,
+        "p99_ms": 2.4895289999999988,
+        "std_ms": 0.16587128721878927
+      },
+      "size_mb": 2.9099,
+      "top1": 24.0
+    },
+    "mixed": {
+      "local_sqnr": {
+        "latency_b1": {
+          "cv": 0.11591255749585973,
+          "iqr_ms": 0.2619499999999997,
+          "mean_ms": 1.970294,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 1.8808,
+          "p90_ms": 2.40904,
+          "p99_ms": 2.6111899999999983,
+          "std_ms": 0.22838181655874745
+        },
+        "size_mb": 2.9099,
+        "top1": 24.0
+      },
+      "sensitivity": {
+        "latency_b1": {
+          "cv": 0.11499328130543426,
+          "iqr_ms": 0.18472500000000003,
+          "mean_ms": 1.6893684999999998,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 1.6012,
+          "p90_ms": 2.0162899999999997,
+          "p99_ms": 2.232368999999999,
+          "std_ms": 0.1942660271490395
+        },
+        "size_mb": 2.934595,
+        "top1": 97.0
+      }
+    },
+    "random_mixed": {
+      "local_sqnr": [
+        {
+          "seed": 0,
+          "top1": 24.0
+        },
+        {
+          "seed": 1,
+          "top1": 24.0
+        },
+        {
+          "seed": 2,
+          "top1": 24.0
+        }
+      ],
+      "sensitivity": [
+        {
+          "seed": 0,
+          "top1": 25.6
+        },
+        {
+          "seed": 1,
+          "top1": 30.6
+        },
+        {
+          "seed": 2,
+          "top1": 24.6
+        }
+      ]
+    }
+  },
+  "schema": "edgebench.s1.v2",
+  "settings": {
+    "analysis_batch": 4,
+    "analysis_images": 32,
+    "calibration_images": 256,
+    "eval_seed": 0,
+    "ks": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_drop_pts": 1.0,
+    "n_report": 500,
+    "n_search": 500,
+    "random_seeds": 3,
+    "sensitivity": true,
+    "sweep": true,
+    "target": "cpu_4t"
+  },
+  "sweep": {
+    "fp32_search_top1": 98.0,
+    "random": {
+      "1": [
+        24.6,
+        22.2,
+        24.2
+      ],
+      "16": [
+        26.0,
+        26.4,
+        24.6
+      ],
+      "2": [
+        24.8,
+        23.4,
+        25.4
+      ],
+      "32": [
+        20.4,
+        23.6,
+        95.2
+      ],
+      "4": [
+        24.8,
+        24.2,
+        25.6
+      ],
+      "8": [
+        23.8,
+        31.4,
+        23.0
+      ]
+    },
+    "ranked": {
+      "local_sqnr": {
+        "0": 26.4,
+        "1": 26.4,
+        "16": 24.4,
+        "2": 26.0,
+        "32": 24.4,
+        "4": 24.8,
+        "8": 25.8
+      },
+      "sensitivity": {
+        "0": 26.4,
+        "1": 27.0,
+        "16": 97.4,
+        "2": 35.8,
+        "32": 97.2,
+        "4": 95.8,
+        "8": 96.2
+      }
+    }
+  },
+  "tensors": [
+    {
+      "consumers": [
+        "/classifier/classifier.0/Gemm"
+      ],
+      "depth": 136,
+      "local_sqnr_db": 348.3048663216416,
+      "model_sqnr_db": -0.6405120650314049,
+      "node": "/Flatten",
+      "op_type": "Flatten",
+      "tensor": "/Flatten_output_0"
+    },
+    {
+      "consumers": [
+        "/Flatten"
+      ],
+      "depth": 135,
+      "local_sqnr_db": 35.013298042756155,
+      "model_sqnr_db": -0.6405120650314049,
+      "node": "/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_17_HS_X",
+        "Mul:/classifier/classifier.1/HardSwish_output_0"
+      ],
+      "depth": 137,
+      "local_sqnr_db": 36.98982719194568,
+      "model_sqnr_db": -1.6730056188951932,
+      "node": "/classifier/classifier.0/Gemm",
+      "op_type": "Gemm",
+      "tensor": "/classifier/classifier.0/Gemm_output_0"
+    },
+    {
+      "consumers": [
+        "/classifier/classifier.3/Gemm"
+      ],
+      "depth": 139,
+      "local_sqnr_db": 35.97499595222945,
+      "model_sqnr_db": -1.0849682243238066,
+      "node": "Mul:/classifier/classifier.1/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/classifier/classifier.1/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_HS_X",
+        "Mul:/features/features.0/features.0.2/HardSwish_output_0"
+      ],
+      "depth": 0,
+      "local_sqnr_db": 26.166284888784993,
+      "model_sqnr_db": 25.186007520396995,
+      "node": "/features/features.0/features.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.0/features.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.0/block.0.0/Conv"
+      ],
+      "depth": 2,
+      "local_sqnr_db": 29.95737070652281,
+      "model_sqnr_db": 23.908920163879536,
+      "node": "Mul:/features/features.0/features.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.0/features.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.1/avgpool/GlobalAveragePool",
+        "/features/features.1/block/block.1/Mul"
+      ],
+      "depth": 3,
+      "local_sqnr_db": 39.348570301001686,
+      "model_sqnr_db": 8.139611096085872,
+      "node": "/features/features.1/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.1/block/block.0/block.0.2/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.2/block.2.0/Conv"
+      ],
+      "depth": 10,
+      "local_sqnr_db": 42.91037696597289,
+      "model_sqnr_db": 10.561567449291543,
+      "node": "/features/features.1/block/block.1/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.1/block/block.1/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.1/fc2/Conv"
+      ],
+      "depth": 6,
+      "local_sqnr_db": null,
+      "model_sqnr_db": null,
+      "node": "/features/features.1/block/block.1/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.1/block/block.1/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.1/fc1/Conv"
+      ],
+      "depth": 5,
+      "local_sqnr_db": 50.990391967434846,
+      "model_sqnr_db": 21.13881891159338,
+      "node": "/features/features.1/block/block.1/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.1/block/block.1/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.1/scale_activation/HardSigmoid"
+      ],
+      "depth": 8,
+      "local_sqnr_db": 47.406290121399735,
+      "model_sqnr_db": 47.41058800753791,
+      "node": "/features/features.1/block/block.1/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.1/block/block.1/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.1/block/block.1/Mul"
+      ],
+      "depth": 9,
+      "local_sqnr_db": 54.722741972369924,
+      "model_sqnr_db": 54.5349981875621,
+      "node": "/features/features.1/block/block.1/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.1/block/block.1/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.2/block/block.0/block.0.0/Conv"
+      ],
+      "depth": 11,
+      "local_sqnr_db": 28.69939345284726,
+      "model_sqnr_db": -2.0551811811426606,
+      "node": "/features/features.1/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.1/block/block.2/block.2.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.0/block.0.0/Conv",
+        "/features/features.11/Add"
+      ],
+      "depth": 117,
+      "local_sqnr_db": 33.35583892038977,
+      "model_sqnr_db": -0.79474081262618,
+      "node": "/features/features.10/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.10/Add_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_12_HS_X",
+        "Mul:/features/features.10/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 104,
+      "local_sqnr_db": 29.608123450769448,
+      "model_sqnr_db": 1.6170232684687118,
+      "node": "/features/features.10/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.10/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 106,
+      "local_sqnr_db": 26.9727442651552,
+      "model_sqnr_db": 0.662590702608795,
+      "node": "Mul:/features/features.10/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.10/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_13_HS_X",
+        "Mul:/features/features.10/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 107,
+      "local_sqnr_db": 29.68810316815004,
+      "model_sqnr_db": 0.574369128792589,
+      "node": "/features/features.10/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.10/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.10/block/block.2/Mul"
+      ],
+      "depth": 109,
+      "local_sqnr_db": 28.22423499265037,
+      "model_sqnr_db": -0.010371092652455881,
+      "node": "Mul:/features/features.10/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.10/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 115,
+      "local_sqnr_db": 19.966944519204176,
+      "model_sqnr_db": 0.41447794396160637,
+      "node": "/features/features.10/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.10/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.2/fc2/Conv"
+      ],
+      "depth": 111,
+      "local_sqnr_db": 43.64424457987062,
+      "model_sqnr_db": 1.8493553847386734,
+      "node": "/features/features.10/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.10/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.2/fc1/Conv"
+      ],
+      "depth": 110,
+      "local_sqnr_db": 35.95921239341687,
+      "model_sqnr_db": -1.4648502759363802,
+      "node": "/features/features.10/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.10/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 113,
+      "local_sqnr_db": 42.47951826906778,
+      "model_sqnr_db": 11.096121487203877,
+      "node": "/features/features.10/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.10/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.2/Mul"
+      ],
+      "depth": 114,
+      "local_sqnr_db": 46.05810607331301,
+      "model_sqnr_db": 6.458727557220493,
+      "node": "/features/features.10/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.10/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/Add"
+      ],
+      "depth": 116,
+      "local_sqnr_db": 29.60560709704584,
+      "model_sqnr_db": -1.1773206039533488,
+      "node": "/features/features.10/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.10/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.12/features.12.0/Conv"
+      ],
+      "depth": 131,
+      "local_sqnr_db": 28.32732470009432,
+      "model_sqnr_db": -0.5611338649122123,
+      "node": "/features/features.11/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.11/Add_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_14_HS_X",
+        "Mul:/features/features.11/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 118,
+      "local_sqnr_db": 31.995987985336953,
+      "model_sqnr_db": 2.301523359484578,
+      "node": "/features/features.11/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.11/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 120,
+      "local_sqnr_db": 29.53993261183255,
+      "model_sqnr_db": 0.5836703507504825,
+      "node": "Mul:/features/features.11/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.11/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_15_HS_X",
+        "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 121,
+      "local_sqnr_db": 24.333761005149537,
+      "model_sqnr_db": -0.141606433642697,
+      "node": "/features/features.11/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.11/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.11/block/block.2/Mul"
+      ],
+      "depth": 123,
+      "local_sqnr_db": 21.156710663480247,
+      "model_sqnr_db": -0.3429188684079992,
+      "node": "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.11/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 129,
+      "local_sqnr_db": 15.289974799634047,
+      "model_sqnr_db": -0.18980464019277002,
+      "node": "/features/features.11/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.11/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.2/fc2/Conv"
+      ],
+      "depth": 125,
+      "local_sqnr_db": 42.114541246304576,
+      "model_sqnr_db": 1.1050270458339158,
+      "node": "/features/features.11/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.11/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.2/fc1/Conv"
+      ],
+      "depth": 124,
+      "local_sqnr_db": 36.92726805341316,
+      "model_sqnr_db": -1.329619879798349,
+      "node": "/features/features.11/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.11/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 127,
+      "local_sqnr_db": 43.98089667733209,
+      "model_sqnr_db": 9.232548988652546,
+      "node": "/features/features.11/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.11/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/block/block.2/Mul"
+      ],
+      "depth": 128,
+      "local_sqnr_db": 42.96657823810587,
+      "model_sqnr_db": 3.6037102791482023,
+      "node": "/features/features.11/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.11/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.11/Add"
+      ],
+      "depth": 130,
+      "local_sqnr_db": 23.982515329031703,
+      "model_sqnr_db": -0.5929374454262799,
+      "node": "/features/features.11/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.11/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_16_HS_X",
+        "Mul:/features/features.12/features.12.2/HardSwish_output_0"
+      ],
+      "depth": 132,
+      "local_sqnr_db": 26.364984569644342,
+      "model_sqnr_db": 0.49892243146088766,
+      "node": "/features/features.12/features.12.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.12/features.12.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/avgpool/GlobalAveragePool"
+      ],
+      "depth": 134,
+      "local_sqnr_db": 23.99928516547179,
+      "model_sqnr_db": -0.3871221948921133,
+      "node": "Mul:/features/features.12/features.12.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.12/features.12.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.2/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 12,
+      "local_sqnr_db": 33.24706359348307,
+      "model_sqnr_db": 5.687194468701879,
+      "node": "/features/features.2/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.2/block/block.0/block.0.2/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.2/block/block.2/block.2.0/Conv"
+      ],
+      "depth": 14,
+      "local_sqnr_db": 37.73331172976953,
+      "model_sqnr_db": 4.053624175932916,
+      "node": "/features/features.2/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.2/block/block.1/block.1.2/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.3/block/block.0/block.0.0/Conv",
+        "/features/features.3/Add"
+      ],
+      "depth": 16,
+      "local_sqnr_db": 30.949456188324255,
+      "model_sqnr_db": -1.7625791796835457,
+      "node": "/features/features.2/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.2/block/block.2/block.2.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.0/block.0.0/Conv"
+      ],
+      "depth": 22,
+      "local_sqnr_db": 51.81770548253651,
+      "model_sqnr_db": -1.7953804444978778,
+      "node": "/features/features.3/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.3/Add_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.3/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 17,
+      "local_sqnr_db": 39.06083760037117,
+      "model_sqnr_db": 6.868437664768285,
+      "node": "/features/features.3/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.3/block/block.0/block.0.2/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.3/block/block.2/block.2.0/Conv"
+      ],
+      "depth": 19,
+      "local_sqnr_db": 42.93911838286411,
+      "model_sqnr_db": 8.356815242166872,
+      "node": "/features/features.3/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.3/block/block.1/block.1.2/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.3/Add"
+      ],
+      "depth": 21,
+      "local_sqnr_db": 32.295372052214525,
+      "model_sqnr_db": -0.3131279279660993,
+      "node": "/features/features.3/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.3/block/block.2/block.2.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_0_HS_X",
+        "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 23,
+      "local_sqnr_db": 32.23304124566417,
+      "model_sqnr_db": 0.7916002976506991,
+      "node": "/features/features.4/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.4/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 25,
+      "local_sqnr_db": 35.375273006422994,
+      "model_sqnr_db": 1.1622404377271416,
+      "node": "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.4/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_1_HS_X",
+        "Mul:/features/features.4/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 26,
+      "local_sqnr_db": 33.046419245511814,
+      "model_sqnr_db": 5.201742087996695,
+      "node": "/features/features.4/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.4/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.4/block/block.2/Mul"
+      ],
+      "depth": 28,
+      "local_sqnr_db": 37.53087116881477,
+      "model_sqnr_db": 6.01150437691235,
+      "node": "Mul:/features/features.4/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.4/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 34,
+      "local_sqnr_db": 42.59609873482503,
+      "model_sqnr_db": 6.327731665498792,
+      "node": "/features/features.4/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.4/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.2/fc2/Conv"
+      ],
+      "depth": 30,
+      "local_sqnr_db": 64.40646562900322,
+      "model_sqnr_db": null,
+      "node": "/features/features.4/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.4/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.2/fc1/Conv"
+      ],
+      "depth": 29,
+      "local_sqnr_db": 40.36520452567003,
+      "model_sqnr_db": 10.298556789450164,
+      "node": "/features/features.4/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.4/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 32,
+      "local_sqnr_db": 39.872954458219766,
+      "model_sqnr_db": 22.763729393460732,
+      "node": "/features/features.4/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.4/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.4/block/block.2/Mul"
+      ],
+      "depth": 33,
+      "local_sqnr_db": 53.724111781217005,
+      "model_sqnr_db": 36.44378654513862,
+      "node": "/features/features.4/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.4/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.0/block.0.0/Conv",
+        "/features/features.5/Add"
+      ],
+      "depth": 35,
+      "local_sqnr_db": 38.69217444983505,
+      "model_sqnr_db": -2.0758825092072337,
+      "node": "/features/features.4/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.4/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.0/block.0.0/Conv",
+        "/features/features.6/Add"
+      ],
+      "depth": 49,
+      "local_sqnr_db": 39.06220800155188,
+      "model_sqnr_db": -2.434274586009721,
+      "node": "/features/features.5/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.5/Add_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_2_HS_X",
+        "Mul:/features/features.5/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 36,
+      "local_sqnr_db": 31.75310047973519,
+      "model_sqnr_db": 2.725036560396134,
+      "node": "/features/features.5/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.5/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 38,
+      "local_sqnr_db": 31.335429403258168,
+      "model_sqnr_db": 1.8426648024534513,
+      "node": "Mul:/features/features.5/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.5/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_3_HS_X",
+        "Mul:/features/features.5/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 39,
+      "local_sqnr_db": 28.715698718180093,
+      "model_sqnr_db": 1.9724142380328096,
+      "node": "/features/features.5/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.5/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.5/block/block.2/Mul"
+      ],
+      "depth": 41,
+      "local_sqnr_db": 26.459246828900756,
+      "model_sqnr_db": -0.08991638299301093,
+      "node": "Mul:/features/features.5/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.5/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 47,
+      "local_sqnr_db": 30.226502108745716,
+      "model_sqnr_db": 2.301930196530417,
+      "node": "/features/features.5/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.5/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.2/fc2/Conv"
+      ],
+      "depth": 43,
+      "local_sqnr_db": 47.85241925413352,
+      "model_sqnr_db": 4.518410857918744,
+      "node": "/features/features.5/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.5/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.2/fc1/Conv"
+      ],
+      "depth": 42,
+      "local_sqnr_db": 37.6724698111166,
+      "model_sqnr_db": 2.3120456382291756,
+      "node": "/features/features.5/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.5/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 45,
+      "local_sqnr_db": 45.610120313778005,
+      "model_sqnr_db": 10.991583088045275,
+      "node": "/features/features.5/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.5/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/block/block.2/Mul"
+      ],
+      "depth": 46,
+      "local_sqnr_db": 50.20091506127275,
+      "model_sqnr_db": 13.105485351790755,
+      "node": "/features/features.5/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.5/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.5/Add"
+      ],
+      "depth": 48,
+      "local_sqnr_db": 35.98198256065593,
+      "model_sqnr_db": -1.407805875415471,
+      "node": "/features/features.5/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.5/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.0/block.0.0/Conv"
+      ],
+      "depth": 63,
+      "local_sqnr_db": 36.84595165685963,
+      "model_sqnr_db": -2.061506729185029,
+      "node": "/features/features.6/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.6/Add_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_4_HS_X",
+        "Mul:/features/features.6/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 50,
+      "local_sqnr_db": 34.56497895991477,
+      "model_sqnr_db": 1.2388224210966787,
+      "node": "/features/features.6/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.6/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 52,
+      "local_sqnr_db": 33.46117018985289,
+      "model_sqnr_db": 0.5273892168788928,
+      "node": "Mul:/features/features.6/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.6/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_5_HS_X",
+        "Mul:/features/features.6/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 53,
+      "local_sqnr_db": 30.064615174284846,
+      "model_sqnr_db": 0.8201940121398537,
+      "node": "/features/features.6/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.6/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.6/block/block.2/Mul"
+      ],
+      "depth": 55,
+      "local_sqnr_db": 29.516567833866254,
+      "model_sqnr_db": -0.7977700683106581,
+      "node": "Mul:/features/features.6/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.6/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 61,
+      "local_sqnr_db": 31.801192851458595,
+      "model_sqnr_db": -0.01669610764231749,
+      "node": "/features/features.6/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.6/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.2/fc2/Conv"
+      ],
+      "depth": 57,
+      "local_sqnr_db": 31.491505662898497,
+      "model_sqnr_db": 3.289347537281391,
+      "node": "/features/features.6/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.6/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.2/fc1/Conv"
+      ],
+      "depth": 56,
+      "local_sqnr_db": 39.31445110388702,
+      "model_sqnr_db": -0.7108254644460893,
+      "node": "/features/features.6/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.6/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 59,
+      "local_sqnr_db": 46.02377925719192,
+      "model_sqnr_db": 10.62483212461043,
+      "node": "/features/features.6/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.6/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/block/block.2/Mul"
+      ],
+      "depth": 60,
+      "local_sqnr_db": 49.756927527459666,
+      "model_sqnr_db": 11.45002454872504,
+      "node": "/features/features.6/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.6/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.6/Add"
+      ],
+      "depth": 62,
+      "local_sqnr_db": 34.23706004384604,
+      "model_sqnr_db": -2.2037945348161765,
+      "node": "/features/features.6/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.6/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_6_HS_X",
+        "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 64,
+      "local_sqnr_db": 30.622486900792122,
+      "model_sqnr_db": 1.169366814844754,
+      "node": "/features/features.7/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.7/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 66,
+      "local_sqnr_db": 33.1032178181665,
+      "model_sqnr_db": 2.550303317810427,
+      "node": "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.7/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_7_HS_X",
+        "Mul:/features/features.7/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 67,
+      "local_sqnr_db": 28.507649772007476,
+      "model_sqnr_db": 2.1506260703523203,
+      "node": "/features/features.7/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.7/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.7/block/block.2/Mul"
+      ],
+      "depth": 69,
+      "local_sqnr_db": 27.591390547632734,
+      "model_sqnr_db": 2.3148322141240243,
+      "node": "Mul:/features/features.7/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.7/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 75,
+      "local_sqnr_db": 37.67543558658091,
+      "model_sqnr_db": 3.2268188061852827,
+      "node": "/features/features.7/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.7/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.2/fc2/Conv"
+      ],
+      "depth": 71,
+      "local_sqnr_db": 51.78255847083835,
+      "model_sqnr_db": 16.220546209611634,
+      "node": "/features/features.7/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.7/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.2/fc1/Conv"
+      ],
+      "depth": 70,
+      "local_sqnr_db": 43.29604218411972,
+      "model_sqnr_db": 6.6616584621230395,
+      "node": "/features/features.7/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.7/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 73,
+      "local_sqnr_db": 48.78615611240307,
+      "model_sqnr_db": 20.034367756240496,
+      "node": "/features/features.7/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.7/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.7/block/block.2/Mul"
+      ],
+      "depth": 74,
+      "local_sqnr_db": 59.51878553485876,
+      "model_sqnr_db": 26.503045492748356,
+      "node": "/features/features.7/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.7/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.0/block.0.0/Conv",
+        "/features/features.8/Add"
+      ],
+      "depth": 76,
+      "local_sqnr_db": 35.60259252531085,
+      "model_sqnr_db": -0.7822087806084067,
+      "node": "/features/features.7/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.7/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.0/block.0.0/Conv"
+      ],
+      "depth": 90,
+      "local_sqnr_db": 35.2137958130178,
+      "model_sqnr_db": -0.6365331843808084,
+      "node": "/features/features.8/Add",
+      "op_type": "Add",
+      "tensor": "/features/features.8/Add_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_8_HS_X",
+        "Mul:/features/features.8/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 77,
+      "local_sqnr_db": 32.17997217171105,
+      "model_sqnr_db": 1.3998493667899183,
+      "node": "/features/features.8/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.8/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 79,
+      "local_sqnr_db": 29.650267543533133,
+      "model_sqnr_db": 0.8794775607621199,
+      "node": "Mul:/features/features.8/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.8/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_9_HS_X",
+        "Mul:/features/features.8/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 80,
+      "local_sqnr_db": 29.15688472249464,
+      "model_sqnr_db": 0.8749973676034674,
+      "node": "/features/features.8/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.8/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.8/block/block.2/Mul"
+      ],
+      "depth": 82,
+      "local_sqnr_db": 25.82803966366784,
+      "model_sqnr_db": 0.2285891036618048,
+      "node": "Mul:/features/features.8/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.8/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 88,
+      "local_sqnr_db": 28.932593110398976,
+      "model_sqnr_db": 1.4534387772719035,
+      "node": "/features/features.8/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.8/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.2/fc2/Conv"
+      ],
+      "depth": 84,
+      "local_sqnr_db": 47.84763479276438,
+      "model_sqnr_db": 3.6969831431536866,
+      "node": "/features/features.8/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.8/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.2/fc1/Conv"
+      ],
+      "depth": 83,
+      "local_sqnr_db": 39.70704580673771,
+      "model_sqnr_db": 1.5929240216432918,
+      "node": "/features/features.8/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.8/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 86,
+      "local_sqnr_db": 46.51132553107877,
+      "model_sqnr_db": 11.961271535945619,
+      "node": "/features/features.8/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.8/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/block/block.2/Mul"
+      ],
+      "depth": 87,
+      "local_sqnr_db": 49.36722309414753,
+      "model_sqnr_db": 12.52130211976371,
+      "node": "/features/features.8/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.8/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.8/Add"
+      ],
+      "depth": 89,
+      "local_sqnr_db": 31.015355542130912,
+      "model_sqnr_db": -0.4305112293393817,
+      "node": "/features/features.8/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.8/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_10_HS_X",
+        "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 91,
+      "local_sqnr_db": 33.660572734105685,
+      "model_sqnr_db": 2.7715356552936083,
+      "node": "/features/features.9/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.9/block/block.0/block.0.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.1/block.1.0/Conv"
+      ],
+      "depth": 93,
+      "local_sqnr_db": 29.458715439590456,
+      "model_sqnr_db": 0.9707791350427974,
+      "node": "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.9/block/block.0/block.0.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "HardSigmoid:_inlfunc_HardSwish_token_11_HS_X",
+        "Mul:/features/features.9/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 94,
+      "local_sqnr_db": 30.283405690917405,
+      "model_sqnr_db": 1.7893992990313137,
+      "node": "/features/features.9/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.9/block/block.1/block.1.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.2/avgpool/GlobalAveragePool",
+        "/features/features.9/block/block.2/Mul"
+      ],
+      "depth": 96,
+      "local_sqnr_db": 30.731858659180077,
+      "model_sqnr_db": 1.2404294010503116,
+      "node": "Mul:/features/features.9/block/block.1/block.1.2/HardSwish_output_0",
+      "op_type": "Mul",
+      "tensor": "/features/features.9/block/block.1/block.1.2/HardSwish_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.3/block.3.0/Conv"
+      ],
+      "depth": 102,
+      "local_sqnr_db": 34.16823806295964,
+      "model_sqnr_db": 2.719115234001875,
+      "node": "/features/features.9/block/block.2/Mul",
+      "op_type": "Mul",
+      "tensor": "/features/features.9/block/block.2/Mul_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.2/fc2/Conv"
+      ],
+      "depth": 98,
+      "local_sqnr_db": 45.702082712491986,
+      "model_sqnr_db": 1.5169954766829528,
+      "node": "/features/features.9/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.9/block/block.2/activation/Relu_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.2/fc1/Conv"
+      ],
+      "depth": 97,
+      "local_sqnr_db": 42.05466461485743,
+      "model_sqnr_db": 3.18948408032049,
+      "node": "/features/features.9/block/block.2/avgpool/GlobalAveragePool",
+      "op_type": "GlobalAveragePool",
+      "tensor": "/features/features.9/block/block.2/avgpool/GlobalAveragePool_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.2/scale_activation/HardSigmoid"
+      ],
+      "depth": 100,
+      "local_sqnr_db": 40.944845406290554,
+      "model_sqnr_db": 7.39564159463087,
+      "node": "/features/features.9/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.9/block/block.2/fc2/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.9/block/block.2/Mul"
+      ],
+      "depth": 101,
+      "local_sqnr_db": 51.473750003967524,
+      "model_sqnr_db": 13.37624078602799,
+      "node": "/features/features.9/block/block.2/scale_activation/HardSigmoid",
+      "op_type": "HardSigmoid",
+      "tensor": "/features/features.9/block/block.2/scale_activation/HardSigmoid_output_0"
+    },
+    {
+      "consumers": [
+        "/features/features.10/block/block.0/block.0.0/Conv",
+        "/features/features.10/Add"
+      ],
+      "depth": 103,
+      "local_sqnr_db": 32.78697143592374,
+      "model_sqnr_db": -0.7302469967173117,
+      "node": "/features/features.9/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "tensor": "/features/features.9/block/block.3/block.3.0/Conv_output_0"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.0/features.0.2/HardSwish_output_0"
+      ],
+      "depth": 1,
+      "local_sqnr_db": 57.00392015016382,
+      "model_sqnr_db": 31.161715955116776,
+      "node": "HardSigmoid:_inlfunc_HardSwish_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.4/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 24,
+      "local_sqnr_db": 53.61858391525481,
+      "model_sqnr_db": 9.562505638346607,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_0_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_0_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.9/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 92,
+      "local_sqnr_db": 50.65309542252428,
+      "model_sqnr_db": 8.880973907593596,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_10_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_10_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.9/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 95,
+      "local_sqnr_db": 53.89798734478915,
+      "model_sqnr_db": 13.53303746141194,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_11_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_11_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.10/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 105,
+      "local_sqnr_db": 52.06302796257759,
+      "model_sqnr_db": 14.740126295466593,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_12_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_12_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.10/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 108,
+      "local_sqnr_db": 50.21792308293786,
+      "model_sqnr_db": 9.216259264245085,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_13_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_13_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.11/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 119,
+      "local_sqnr_db": 51.39156389896379,
+      "model_sqnr_db": 9.990138028483805,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_14_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_14_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.11/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 122,
+      "local_sqnr_db": 51.45210561467006,
+      "model_sqnr_db": 9.344314467077004,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_15_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_15_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.12/features.12.2/HardSwish_output_0"
+      ],
+      "depth": 133,
+      "local_sqnr_db": 52.23658175046697,
+      "model_sqnr_db": 2.1221535019049043,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_16_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_16_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/classifier/classifier.1/HardSwish_output_0"
+      ],
+      "depth": 138,
+      "local_sqnr_db": 52.3858591002097,
+      "model_sqnr_db": 5.077807013005579,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_17_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_17_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.4/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 27,
+      "local_sqnr_db": 56.56583357177748,
+      "model_sqnr_db": 13.61124634252434,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_1_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_1_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.5/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 37,
+      "local_sqnr_db": 52.65538754739866,
+      "model_sqnr_db": 14.6101791571392,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_2_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_2_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.5/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 40,
+      "local_sqnr_db": 52.5468087031221,
+      "model_sqnr_db": 9.385609987061933,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_3_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_3_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.6/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 51,
+      "local_sqnr_db": 52.395018493955476,
+      "model_sqnr_db": 13.756188966989829,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_4_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_4_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.6/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 54,
+      "local_sqnr_db": 52.51601613251769,
+      "model_sqnr_db": 8.624680613499855,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_5_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_5_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.7/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 65,
+      "local_sqnr_db": 52.50578727108389,
+      "model_sqnr_db": 11.892115710794553,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_6_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_6_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.7/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 68,
+      "local_sqnr_db": 54.472651807272086,
+      "model_sqnr_db": 11.733772757615737,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_7_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_7_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.8/block/block.0/block.0.2/HardSwish_output_0"
+      ],
+      "depth": 78,
+      "local_sqnr_db": 52.697606309730254,
+      "model_sqnr_db": 13.86161322103135,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_8_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_8_HS_X"
+    },
+    {
+      "consumers": [
+        "Mul:/features/features.8/block/block.1/block.1.2/HardSwish_output_0"
+      ],
+      "depth": 81,
+      "local_sqnr_db": 51.0123231431463,
+      "model_sqnr_db": 9.498531166489618,
+      "node": "HardSigmoid:_inlfunc_HardSwish_token_9_HS_X",
+      "op_type": "HardSigmoid",
+      "tensor": "_inlfunc_HardSwish_token_9_HS_X"
+    },
+    {
+      "consumers": [
+        "/features/features.0/features.0.0/Conv"
+      ],
+      "depth": null,
+      "local_sqnr_db": 46.40898499581923,
+      "model_sqnr_db": 46.40898499581923,
+      "node": null,
+      "op_type": null,
+      "tensor": "input"
+    },
+    {
+      "consumers": [],
+      "depth": 140,
+      "local_sqnr_db": 31.852521540446944,
+      "model_sqnr_db": 0.10260931562774286,
+      "node": "/classifier/classifier.3/Gemm",
+      "op_type": "Gemm",
+      "tensor": "logits"
+    }
+  ],
+  "weights": [
+    {
+      "node": "/classifier/classifier.0/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 75.86946707733865,
+      "weight": "classifier.0.bias"
+    },
+    {
+      "node": "/classifier/classifier.0/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 41.18618069213126,
+      "weight": "classifier.0.weight"
+    },
+    {
+      "node": "/classifier/classifier.3/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 85.32946756464392,
+      "weight": "classifier.3.bias"
+    },
+    {
+      "node": "/classifier/classifier.3/Gemm",
+      "op_type": "Gemm",
+      "sqnr_db": 41.67098655131738,
+      "weight": "classifier.3.weight"
+    },
+    {
+      "node": "/features/features.1/block/block.1/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 64.81551035286203,
+      "weight": "features.1.block.1.fc1.bias"
+    },
+    {
+      "node": "/features/features.1/block/block.1/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 45.20613297508853,
+      "weight": "features.1.block.1.fc1.weight"
+    },
+    {
+      "node": "/features/features.1/block/block.1/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 102.69674421081743,
+      "weight": "features.1.block.1.fc2.bias"
+    },
+    {
+      "node": "/features/features.1/block/block.1/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 103.108289420532,
+      "weight": "features.1.block.1.fc2.weight"
+    },
+    {
+      "node": "/features/features.10/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 77.02256266253995,
+      "weight": "features.10.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.10/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.95372450467081,
+      "weight": "features.10.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.10/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 80.48554576288977,
+      "weight": "features.10.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.10/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.96146070574059,
+      "weight": "features.10.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.11/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 81.31134057664823,
+      "weight": "features.11.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.11/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 39.368955645895824,
+      "weight": "features.11.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.11/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 77.54454860008823,
+      "weight": "features.11.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.11/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.408142377572126,
+      "weight": "features.11.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.4/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 61.91956953731712,
+      "weight": "features.4.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.4/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.370633387624814,
+      "weight": "features.4.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.4/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 94.94263518366921,
+      "weight": "features.4.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.4/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 140.0789793577932,
+      "weight": "features.4.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.5/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 76.59417523288029,
+      "weight": "features.5.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.5/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.937381662333266,
+      "weight": "features.5.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.5/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 77.90858940954101,
+      "weight": "features.5.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.5/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.7579240008677,
+      "weight": "features.5.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.6/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 77.0805844445716,
+      "weight": "features.6.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.6/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 37.28122423959889,
+      "weight": "features.6.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.6/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 84.25790926775224,
+      "weight": "features.6.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.6/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.1198110541344,
+      "weight": "features.6.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.7/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 66.4977952279541,
+      "weight": "features.7.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.7/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 36.794117768254296,
+      "weight": "features.7.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.7/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 80.6758358992571,
+      "weight": "features.7.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.7/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 46.51778268878891,
+      "weight": "features.7.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.8/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 82.83915960670187,
+      "weight": "features.8.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.8/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 39.66233278449959,
+      "weight": "features.8.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.8/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 85.53983540757918,
+      "weight": "features.8.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.8/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.39953219673424,
+      "weight": "features.8.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.9/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 75.96364372691303,
+      "weight": "features.9.block.2.fc1.bias"
+    },
+    {
+      "node": "/features/features.9/block/block.2/fc1/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 38.99051744362973,
+      "weight": "features.9.block.2.fc1.weight"
+    },
+    {
+      "node": "/features/features.9/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 83.41898047047799,
+      "weight": "features.9.block.2.fc2.bias"
+    },
+    {
+      "node": "/features/features.9/block/block.2/fc2/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.45773985402205,
+      "weight": "features.9.block.2.fc2.weight"
+    },
+    {
+      "node": "/features/features.0/features.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.23084991321802,
+      "weight": "onnx::Conv_402"
+    },
+    {
+      "node": "/features/features.0/features.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 80.3217435052426,
+      "weight": "onnx::Conv_403"
+    },
+    {
+      "node": "/features/features.1/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 47.761812318044534,
+      "weight": "onnx::Conv_405"
+    },
+    {
+      "node": "/features/features.1/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 56.11423971204249,
+      "weight": "onnx::Conv_406"
+    },
+    {
+      "node": "/features/features.1/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.53402672144807,
+      "weight": "onnx::Conv_408"
+    },
+    {
+      "node": "/features/features.1/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 87.79347950015072,
+      "weight": "onnx::Conv_409"
+    },
+    {
+      "node": "/features/features.2/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.09330632686503,
+      "weight": "onnx::Conv_411"
+    },
+    {
+      "node": "/features/features.2/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 71.86345963177638,
+      "weight": "onnx::Conv_412"
+    },
+    {
+      "node": "/features/features.2/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 47.79097295567607,
+      "weight": "onnx::Conv_414"
+    },
+    {
+      "node": "/features/features.2/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 71.40726854494837,
+      "weight": "onnx::Conv_415"
+    },
+    {
+      "node": "/features/features.2/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.801638894859536,
+      "weight": "onnx::Conv_417"
+    },
+    {
+      "node": "/features/features.2/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 84.48653710766098,
+      "weight": "onnx::Conv_418"
+    },
+    {
+      "node": "/features/features.3/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.2796897508606,
+      "weight": "onnx::Conv_420"
+    },
+    {
+      "node": "/features/features.3/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 79.08804903204927,
+      "weight": "onnx::Conv_421"
+    },
+    {
+      "node": "/features/features.3/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.76680069445151,
+      "weight": "onnx::Conv_423"
+    },
+    {
+      "node": "/features/features.3/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 77.1336953267411,
+      "weight": "onnx::Conv_424"
+    },
+    {
+      "node": "/features/features.3/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.83072831306461,
+      "weight": "onnx::Conv_426"
+    },
+    {
+      "node": "/features/features.3/block/block.2/block.2.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 88.37436830861846,
+      "weight": "onnx::Conv_427"
+    },
+    {
+      "node": "/features/features.4/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.85223807484738,
+      "weight": "onnx::Conv_429"
+    },
+    {
+      "node": "/features/features.4/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 75.53467040056698,
+      "weight": "onnx::Conv_430"
+    },
+    {
+      "node": "/features/features.4/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.05865485150454,
+      "weight": "onnx::Conv_432"
+    },
+    {
+      "node": "/features/features.4/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 72.20272395543458,
+      "weight": "onnx::Conv_433"
+    },
+    {
+      "node": "/features/features.4/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.32993877085872,
+      "weight": "onnx::Conv_435"
+    },
+    {
+      "node": "/features/features.4/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 92.9452383394581,
+      "weight": "onnx::Conv_436"
+    },
+    {
+      "node": "/features/features.5/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.375520516513966,
+      "weight": "onnx::Conv_438"
+    },
+    {
+      "node": "/features/features.5/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 84.88678230696407,
+      "weight": "onnx::Conv_439"
+    },
+    {
+      "node": "/features/features.5/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.21115292350867,
+      "weight": "onnx::Conv_441"
+    },
+    {
+      "node": "/features/features.5/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 64.5429975642921,
+      "weight": "onnx::Conv_442"
+    },
+    {
+      "node": "/features/features.5/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.41925079877623,
+      "weight": "onnx::Conv_444"
+    },
+    {
+      "node": "/features/features.5/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 82.6098667733882,
+      "weight": "onnx::Conv_445"
+    },
+    {
+      "node": "/features/features.6/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.20158797914865,
+      "weight": "onnx::Conv_447"
+    },
+    {
+      "node": "/features/features.6/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 86.83650590569549,
+      "weight": "onnx::Conv_448"
+    },
+    {
+      "node": "/features/features.6/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.07416884105917,
+      "weight": "onnx::Conv_450"
+    },
+    {
+      "node": "/features/features.6/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 67.17151047546716,
+      "weight": "onnx::Conv_451"
+    },
+    {
+      "node": "/features/features.6/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.712206012925364,
+      "weight": "onnx::Conv_453"
+    },
+    {
+      "node": "/features/features.6/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 86.414030581757,
+      "weight": "onnx::Conv_454"
+    },
+    {
+      "node": "/features/features.7/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.964298152648404,
+      "weight": "onnx::Conv_456"
+    },
+    {
+      "node": "/features/features.7/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 79.8048688606648,
+      "weight": "onnx::Conv_457"
+    },
+    {
+      "node": "/features/features.7/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 39.84165991254769,
+      "weight": "onnx::Conv_459"
+    },
+    {
+      "node": "/features/features.7/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 62.44945594687206,
+      "weight": "onnx::Conv_460"
+    },
+    {
+      "node": "/features/features.7/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.06653022659373,
+      "weight": "onnx::Conv_462"
+    },
+    {
+      "node": "/features/features.7/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 86.41449153254175,
+      "weight": "onnx::Conv_463"
+    },
+    {
+      "node": "/features/features.8/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 44.177176665010755,
+      "weight": "onnx::Conv_465"
+    },
+    {
+      "node": "/features/features.8/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 85.102261998687,
+      "weight": "onnx::Conv_466"
+    },
+    {
+      "node": "/features/features.8/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.816299712905234,
+      "weight": "onnx::Conv_468"
+    },
+    {
+      "node": "/features/features.8/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 66.4705267589202,
+      "weight": "onnx::Conv_469"
+    },
+    {
+      "node": "/features/features.8/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.611897687764404,
+      "weight": "onnx::Conv_471"
+    },
+    {
+      "node": "/features/features.8/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 79.7710851685105,
+      "weight": "onnx::Conv_472"
+    },
+    {
+      "node": "/features/features.9/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.76453094940761,
+      "weight": "onnx::Conv_474"
+    },
+    {
+      "node": "/features/features.9/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 86.63471556226256,
+      "weight": "onnx::Conv_475"
+    },
+    {
+      "node": "/features/features.9/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 45.74817041569797,
+      "weight": "onnx::Conv_477"
+    },
+    {
+      "node": "/features/features.9/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 76.93268894252301,
+      "weight": "onnx::Conv_478"
+    },
+    {
+      "node": "/features/features.9/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 42.17479855957893,
+      "weight": "onnx::Conv_480"
+    },
+    {
+      "node": "/features/features.9/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 85.44619357841648,
+      "weight": "onnx::Conv_481"
+    },
+    {
+      "node": "/features/features.10/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.495437835283354,
+      "weight": "onnx::Conv_483"
+    },
+    {
+      "node": "/features/features.10/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 85.86999831700972,
+      "weight": "onnx::Conv_484"
+    },
+    {
+      "node": "/features/features.10/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.976017912267864,
+      "weight": "onnx::Conv_486"
+    },
+    {
+      "node": "/features/features.10/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 61.95783197000534,
+      "weight": "onnx::Conv_487"
+    },
+    {
+      "node": "/features/features.10/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.72601783079596,
+      "weight": "onnx::Conv_489"
+    },
+    {
+      "node": "/features/features.10/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 81.16439340535476,
+      "weight": "onnx::Conv_490"
+    },
+    {
+      "node": "/features/features.11/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.58058512855255,
+      "weight": "onnx::Conv_492"
+    },
+    {
+      "node": "/features/features.11/block/block.0/block.0.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 88.45278797383136,
+      "weight": "onnx::Conv_493"
+    },
+    {
+      "node": "/features/features.11/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 40.904419353926116,
+      "weight": "onnx::Conv_495"
+    },
+    {
+      "node": "/features/features.11/block/block.1/block.1.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 68.59765703936378,
+      "weight": "onnx::Conv_496"
+    },
+    {
+      "node": "/features/features.11/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 41.47243467205914,
+      "weight": "onnx::Conv_498"
+    },
+    {
+      "node": "/features/features.11/block/block.3/block.3.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 65.9057100219218,
+      "weight": "onnx::Conv_499"
+    },
+    {
+      "node": "/features/features.12/features.12.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 43.13166656837443,
+      "weight": "onnx::Conv_501"
+    },
+    {
+      "node": "/features/features.12/features.12.0/Conv",
+      "op_type": "Conv",
+      "sqnr_db": 78.54192368649402,
+      "weight": "onnx::Conv_502"
+    }
+  ]
+}

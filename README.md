@@ -54,6 +54,46 @@ Accuracy and parity on `cpu_1t` are identical to `cpu_4t` (same model config and
 
 All four runs (results JSON, `report.md`, `pareto.png`) are in [`results/sample/`](results/sample/).
 
+## Per-layer quantization analysis: why MobileNetV3-Small INT8 collapses (stretch S1)
+
+MobileNetV3-Small static INT8 drops to 24 % top-1. [`scripts/s1_layer_error.py`](scripts/s1_layer_error.py) asks which nodes cause it and fixes it by keeping only those in FP32 (mixed precision). Protocol: the 1000 eval images are split (seed 0) into a 500-image **search** half and a 500-image **report** half; both rankings and the choice of k use only the search half; nodes are ranked on 32 search images; every top-k is compared with **k random nodes** (3 seeds), because keeping *any* nodes in FP32 helps a little.
+
+Two rankings of the 127 quantized nodes:
+
+- **Local SQNR** (`20·log10(‖x‖/‖x−x̂‖)`, from ORT's `qdq_loss_debug`): how much each node's weights and inputs lose when quantized. Cheap, one pass.
+- **Sensitivity**: quantize *only that node*, keep everything else FP32, and measure the SQNR of the logits against FP32. One quantization per node (127); the whole study took 741 s.
+
+Search half, top-1 when the top-k nodes are kept in FP32 (FP32: 98.00 %, all-INT8: 26.40 %):
+
+| k | Local SQNR ranking | Sensitivity ranking | Random k nodes (3 seeds) |
+|---|---|---|---|
+| 1 | 26.40 | 27.00 | 24.60, 22.20, 24.20 |
+| 2 | 26.00 | 35.80 | 24.80, 23.40, 25.40 |
+| 4 | 24.80 | **95.80** | 24.80, 24.20, 25.60 |
+| 16 | 24.40 | 97.40 | 26.00, 26.40, 24.60 |
+| 32 | 24.40 | 97.20 | 20.40, 23.60, 95.20 |
+
+Report half, with k = 16 chosen on the search half (the smallest k within 1 point of FP32):
+
+| Model | Top-1 (%) | Size (MB) | p50 ms (b=1) | p90 ms (b=1) | CV (%) |
+|---|---|---|---|---|---|
+| ONNX FP32 | 97.20 | 10.18 | 1.25 | 1.72 | 22.4 (noisy) |
+| INT8 static, all nodes | 24.00 | 2.91 | 1.88 | 2.13 | 8.6 |
+| INT8, 16 most sensitive nodes in FP32 | **97.00** | 2.93 | 1.60 | 2.02 | 11.5 (noisy) |
+| INT8, 16 random nodes in FP32 (3 seeds) | 25.60, 30.60, 24.60 | — | — | — | — |
+
+![Top-1 on the search half vs number of nodes kept in FP32: the sensitivity ranking jumps from 35.8 % at k=2 to 95.8 % at k=4; the local-SQNR ranking stays at 24–26 % for every k; random choices stay at 20–31 % except one k=32 draw at 95.2 %.](results/sample/s1/mobilenet_v3_small/recovery.png)
+
+What it shows:
+
+- **A few early nodes cause the collapse.** The most sensitive are the stem conv (`features.0.0`, logit SQNR −0.1 dB when it alone is INT8), the first conv of block `features.1` (0.1 dB) and the stem HardSwish (0.1 dB). Keeping the top 4 in FP32 recovers 95.8 % on the search half; the top 16 give 97.00 % on the report half at 2.93 MB (vs 2.91 MB all-INT8).
+- **Local error does not predict the damage.** Those nodes look healthy locally (weights 44–48 dB, inputs 26–46 dB), and the local-SQNR ranking recovers nothing at any k: small early perturbations are amplified by the rest of the network. The mechanism of that amplification has not been isolated.
+- **A measurement trap found on the way:** ORT's `qdq_loss_debug` compares a Conv's raw output with the quantized output of the Relu that the QDQ quantizer folds into it, so the Relu itself shows up as quantization error (median 3.8 dB on Relu outputs vs 40.7 dB against `relu(x)`, 4 images). EdgeBench corrects this; the first, uncorrected ranking recovered nothing either.
+- **Control — ResNet-18** (INT8 works): its most sensitive node is also the stem (`conv1`, 10.4 dB), the next ones 28.9 dB and higher; MobileNetV3-Small has three nodes near 0 dB. [ResNet-18 rankings](results/sample/s1/resnet18/report.md).
+- The mixed model's latency (1.60 ms) is between all-INT8 (1.88 ms) and FP32 (1.25 ms); INT8 is not faster than FP32 for this small model on this CPU at batch 1.
+
+Full outputs (JSON with every tensor's and node's SQNR, both rankings, plots): [`results/sample/s1/`](results/sample/s1/). Disclosure: the first version of the study (before the Relu correction and the sensitivity ranking) also printed report-half numbers; no choice was tuned on them.
+
 ## Architecture
 
 ```
@@ -161,13 +201,13 @@ GitHub Actions (`.github/workflows/ci.yml`) runs ruff, the fast test suite, then
 - CPU only (PyTorch eager and ONNX Runtime `CPUExecutionProvider`) on one laptop CPU. These are **not** edge, mobile or NPU numbers.
 - Latency was measured on a laptop with other software running; several measurements are flagged noisy (CV > 10 %). Compare runs only on the same machine and target profile.
 - Accuracy is 10-way top-1 on 1000 Imagenette images, not ImageNet top-1.
-- MobileNetV3-Small INT8 (dynamic and static) collapses to near-chance accuracy with the default ORT settings. The cause is the quantized convolutions (keeping convs in FP32 restores agreement to 31/32); the exact layers have not been identified yet (see Roadmap S1).
+- MobileNetV3-Small INT8 collapses to near-chance accuracy with the default ORT settings. For static INT8 the cause is a handful of early nodes and keeping 16 nodes in FP32 restores it (S1 above); the main results table still shows the all-INT8 variants. Dynamic INT8 is not covered by S1 (ORT's debugging tools need a QDQ model), and why those early nodes amplify small errors is not yet explained.
 - TFLite is **deferred**: its PyTorch converter (`litert-torch`, formerly `ai-edge-torch`) depends on a package with no Windows build, and this project was developed on native Windows. The TFLite variant names and a lazily-imported backend hook exist, but no TFLite numbers are reported.
 
 ## Roadmap (not done)
 
 - **TFLite:** convert on Linux, run with the LiteRT interpreter.
-- **S1 — Per-layer quantization error analysis:** rank FP32-vs-INT8 error per layer, re-quantize with the worst layers excluded, measure accuracy recovery (aimed at the MobileNetV3-Small collapse).
+- **S1 follow-ups:** explain why MobileNetV3-Small's early nodes amplify small INT8 errors; extend the analysis to dynamic INT8; offer the mixed-precision model as a regular `edgebench run` variant.
 - **S2 — Calibration sweep:** MinMax / Entropy / Percentile × per-tensor / per-channel.
 - **S3 — Qualcomm AI Hub:** profile on hosted Snapdragon devices, reported separately and labelled as on-device numbers.
 - **S4 — A transformer model** (DistilBERT) to contrast dynamic quantization.

@@ -1,0 +1,276 @@
+{
+  "config": {
+    "model": {
+      "dataset": "imagenette2-160",
+      "eval": {
+        "batch_size": 32,
+        "n_images": 1000,
+        "seed": 0
+      },
+      "export": {
+        "opset": 17
+      },
+      "model": "resnet18",
+      "parity": {
+        "fp32": {
+          "max_abs_err": 0.001,
+          "min_cosine": 0.9999,
+          "min_top1_agreement": 0.99
+        },
+        "int8": {
+          "min_top1_agreement": 0.9
+        },
+        "n_images": 32
+      },
+      "quantization": {
+        "calibration": {
+          "batch_size": 32,
+          "n_images": 256,
+          "seed": 0
+        },
+        "static": {
+          "activation_type": "quint8",
+          "calibrate_method": "minmax",
+          "per_channel": true,
+          "weight_type": "qint8"
+        }
+      },
+      "variants": [
+        "torch_fp32",
+        "onnx_fp32",
+        "onnx_int8_dynamic",
+        "onnx_int8_static"
+      ],
+      "weights": "DEFAULT"
+    },
+    "target": {
+      "batch_sizes": [
+        1,
+        8
+      ],
+      "inter_op_threads": 1,
+      "intra_op_threads": 4,
+      "name": "cpu_4t",
+      "noisy_cv_threshold": 0.1,
+      "runs": 200,
+      "warmup": 20
+    }
+  },
+  "config_hash": "e0e2863076d1874a6891fe118f195c6918c8367474143be01f82b2406e72dd4d",
+  "created_at": "2026-10-19T11:57:06Z",
+  "edgebench_version": "0.1.0",
+  "environment": {
+    "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "kernel": "10.0.26200",
+    "logical_cores": 12,
+    "os": "Windows",
+    "packages": {
+      "numpy": "2.4.6",
+      "onnx": "1.23.2",
+      "onnxruntime": "1.31.0",
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu"
+    },
+    "python": "3.11.4"
+  },
+  "run_id": "20261019T115706Z_e0e28630",
+  "schema_version": 1,
+  "variants": [
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": null,
+        "n_images": 1000,
+        "top1": 97.7
+      },
+      "artifact": null,
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.2100636787960121,
+          "iqr_ms": 7.229500000000002,
+          "mean_ms": 31.677806,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 30.6754,
+          "p90_ms": 38.30377,
+          "p99_ms": 50.29726999999997,
+          "std_ms": 6.654356464546384
+        },
+        "8": {
+          "cv": 0.0841143941408698,
+          "iqr_ms": 12.503675000000015,
+          "mean_ms": 137.50793249999998,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 134.7723,
+          "p90_ms": 152.58487,
+          "p99_ms": 172.48782599999996,
+          "std_ms": 11.566396431801119
+        }
+      },
+      "load_ms": 192.132699987269,
+      "model": "resnet18",
+      "parity": null,
+      "precision": "fp32",
+      "runtime": "torch",
+      "size_mb": null,
+      "status": "ok",
+      "variant": "torch_fp32"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": 0.0,
+        "n_images": 1000,
+        "top1": 97.7
+      },
+      "artifact": "artifacts/resnet18/onnx_fp32.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.12431494601115511,
+          "iqr_ms": 0.7729000000000017,
+          "mean_ms": 10.887997999999998,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 10.36085,
+          "p90_ms": 12.442389999999998,
+          "p99_ms": 16.947104999999997,
+          "std_ms": 1.3535408835395646
+        },
+        "8": {
+          "cv": 0.05407283476879758,
+          "iqr_ms": 5.803574999999995,
+          "mean_ms": 85.2930725,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 83.81125,
+          "p90_ms": 91.43433999999999,
+          "p99_ms": 99.14892899999998,
+          "std_ms": 4.612038216215573
+        }
+      },
+      "load_ms": 116.74470000434667,
+      "model": "resnet18",
+      "parity": {
+        "cosine_similarity": 0.9999999999996017,
+        "max_abs_err": 1.71661376953125e-05,
+        "mean_abs_err": 2.061923732981086e-06,
+        "n_samples": 32,
+        "tolerance": {
+          "max_abs_err": 0.001,
+          "min_cosine": 0.9999,
+          "min_top1_agreement": 0.99
+        },
+        "top1_agreement": 1.0,
+        "within_tolerance": true
+      },
+      "precision": "fp32",
+      "runtime": "onnxruntime",
+      "size_mb": 46.748561,
+      "status": "ok",
+      "variant": "onnx_fp32"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": -0.10000000000000853,
+        "n_images": 1000,
+        "top1": 97.6
+      },
+      "artifact": "artifacts/resnet18/onnx_int8_dynamic.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.05831263580535211,
+          "iqr_ms": 12.839474999999993,
+          "mean_ms": 172.33744600000003,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 170.9283,
+          "p90_ms": 186.69382000000002,
+          "p99_ms": 199.36290599999992,
+          "std_ms": 10.049450724222538
+        },
+        "8": {
+          "cv": 0.025870530034210727,
+          "iqr_ms": 43.54165000000012,
+          "mean_ms": 1398.4478585,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 1390.422,
+          "p90_ms": 1452.99172,
+          "p99_ms": 1494.8866209999996,
+          "std_ms": 36.17858732460192
+        }
+      },
+      "load_ms": 67.57179999840446,
+      "model": "resnet18",
+      "parity": {
+        "cosine_similarity": 0.9954000580075952,
+        "max_abs_err": 1.4630639255046844,
+        "mean_abs_err": 0.2201452700537484,
+        "n_samples": 32,
+        "tolerance": {
+          "min_top1_agreement": 0.9
+        },
+        "top1_agreement": 0.96875,
+        "within_tolerance": true
+      },
+      "precision": "int8_dynamic",
+      "runtime": "onnxruntime",
+      "size_mb": 11.74496,
+      "status": "ok",
+      "variant": "onnx_int8_dynamic"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": -1.5,
+        "n_images": 1000,
+        "top1": 96.2
+      },
+      "artifact": "artifacts/resnet18/onnx_int8_static.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.09009223959462863,
+          "iqr_ms": 0.4653999999999998,
+          "mean_ms": 6.424278,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 6.1716999999999995,
+          "p90_ms": 7.371299999999999,
+          "p99_ms": 8.114039999999997,
+          "std_ms": 0.5787775927985016
+        },
+        "8": {
+          "cv": 0.05851122315372434,
+          "iqr_ms": 2.8802999999999983,
+          "mean_ms": 46.6697285,
+          "n": 200,
+          "noisy": false,
+          "p50_ms": 45.53475,
+          "p90_ms": 50.0727,
+          "p99_ms": 57.19919899999997,
+          "std_ms": 2.7307028987872286
+        }
+      },
+      "load_ms": 76.44980000623036,
+      "model": "resnet18",
+      "parity": {
+        "cosine_similarity": 0.9548871626516111,
+        "max_abs_err": 12.393293380737305,
+        "mean_abs_err": 0.6070712615637603,
+        "n_samples": 32,
+        "tolerance": {
+          "min_top1_agreement": 0.9
+        },
+        "top1_agreement": 1.0,
+        "within_tolerance": true
+      },
+      "precision": "int8_static",
+      "runtime": "onnxruntime",
+      "size_mb": 11.822924,
+      "status": "ok",
+      "variant": "onnx_int8_static"
+    }
+  ]
+}

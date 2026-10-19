@@ -1,0 +1,276 @@
+{
+  "config": {
+    "model": {
+      "dataset": "imagenette2-160",
+      "eval": {
+        "batch_size": 32,
+        "n_images": 1000,
+        "seed": 0
+      },
+      "export": {
+        "opset": 17
+      },
+      "model": "mobilenet_v3_small",
+      "parity": {
+        "fp32": {
+          "max_abs_err": 0.001,
+          "min_cosine": 0.9999,
+          "min_top1_agreement": 0.99
+        },
+        "int8": {
+          "min_top1_agreement": 0.9
+        },
+        "n_images": 32
+      },
+      "quantization": {
+        "calibration": {
+          "batch_size": 32,
+          "n_images": 256,
+          "seed": 0
+        },
+        "static": {
+          "activation_type": "quint8",
+          "calibrate_method": "minmax",
+          "per_channel": true,
+          "weight_type": "qint8"
+        }
+      },
+      "variants": [
+        "torch_fp32",
+        "onnx_fp32",
+        "onnx_int8_dynamic",
+        "onnx_int8_static"
+      ],
+      "weights": "DEFAULT"
+    },
+    "target": {
+      "batch_sizes": [
+        1,
+        8
+      ],
+      "inter_op_threads": 1,
+      "intra_op_threads": 1,
+      "name": "cpu_1t",
+      "noisy_cv_threshold": 0.1,
+      "runs": 200,
+      "warmup": 20
+    }
+  },
+  "config_hash": "5e1a9353e7a65ad2b2bd80b091fcc6da9530298b3fca4631deb1497a14e210c5",
+  "created_at": "2026-10-19T14:22:40Z",
+  "edgebench_version": "0.1.0",
+  "environment": {
+    "cpu_model": "AMD Ryzen 5 5600H with Radeon Graphics",
+    "kernel": "10.0.26200",
+    "logical_cores": 12,
+    "os": "Windows",
+    "packages": {
+      "numpy": "2.4.6",
+      "onnx": "1.23.2",
+      "onnxruntime": "1.31.0",
+      "torch": "2.14.1+cpu",
+      "torchvision": "0.29.1+cpu"
+    },
+    "python": "3.11.4"
+  },
+  "run_id": "20261019T142240Z_5e1a9353",
+  "schema_version": 1,
+  "variants": [
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": null,
+        "n_images": 1000,
+        "top1": 97.6
+      },
+      "artifact": null,
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.15114445660042958,
+          "iqr_ms": 1.3299249999999994,
+          "mean_ms": 7.292296,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 7.00805,
+          "p90_ms": 8.557599999999999,
+          "p99_ms": 10.943313999999997,
+          "std_ms": 1.1021901162894863
+        },
+        "8": {
+          "cv": 0.376335160135616,
+          "iqr_ms": 18.5916,
+          "mean_ms": 48.534013,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 44.0497,
+          "p90_ms": 71.68356999999999,
+          "p99_ms": 111.23680499999996,
+          "std_ms": 18.26505555437907
+        }
+      },
+      "load_ms": 230.65389999828767,
+      "model": "mobilenet_v3_small",
+      "parity": null,
+      "precision": "fp32",
+      "runtime": "torch",
+      "size_mb": null,
+      "status": "ok",
+      "variant": "torch_fp32"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": 0.0,
+        "n_images": 1000,
+        "top1": 97.6
+      },
+      "artifact": "artifacts/mobilenet_v3_small/onnx_fp32.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.3048281409101072,
+          "iqr_ms": 1.2562250000000001,
+          "mean_ms": 2.8315924999999997,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 2.4789,
+          "p90_ms": 3.84616,
+          "p99_ms": 5.318641999999991,
+          "std_ms": 0.8631490775900026
+        },
+        "8": {
+          "cv": 0.11975411511311257,
+          "iqr_ms": 3.5310249999999996,
+          "mean_ms": 20.0336635,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 19.51945,
+          "p90_ms": 23.61483,
+          "p99_ms": 26.325031999999997,
+          "std_ms": 2.3991136449163615
+        }
+      },
+      "load_ms": 74.75189999968279,
+      "model": "mobilenet_v3_small",
+      "parity": {
+        "cosine_similarity": 0.9999999999987746,
+        "max_abs_err": 6.496906280517578e-05,
+        "mean_abs_err": 6.902463937876746e-06,
+        "n_samples": 32,
+        "tolerance": {
+          "max_abs_err": 0.001,
+          "min_cosine": 0.9999,
+          "min_top1_agreement": 0.99
+        },
+        "top1_agreement": 1.0,
+        "within_tolerance": true
+      },
+      "precision": "fp32",
+      "runtime": "onnxruntime",
+      "size_mb": 10.181054,
+      "status": "ok",
+      "variant": "onnx_fp32"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": -83.5,
+        "n_images": 1000,
+        "top1": 14.1
+      },
+      "artifact": "artifacts/mobilenet_v3_small/onnx_int8_dynamic.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.12411038220190948,
+          "iqr_ms": 3.697224999999996,
+          "mean_ms": 34.657858000000004,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 32.8523,
+          "p90_ms": 40.4828,
+          "p99_ms": 52.657422999999994,
+          "std_ms": 4.3014000026795065
+        },
+        "8": {
+          "cv": 0.2686025127823425,
+          "iqr_ms": 45.86970000000002,
+          "mean_ms": 307.063571,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 270.99415,
+          "p90_ms": 416.89738,
+          "p99_ms": 635.76976,
+          "std_ms": 82.47804675451924
+        }
+      },
+      "load_ms": 118.84600001212675,
+      "model": "mobilenet_v3_small",
+      "parity": {
+        "cosine_similarity": -0.15961846117001893,
+        "max_abs_err": 29.043769121170044,
+        "mean_abs_err": 5.095290072040618,
+        "n_samples": 32,
+        "tolerance": {
+          "min_top1_agreement": 0.9
+        },
+        "top1_agreement": 0.0,
+        "within_tolerance": false
+      },
+      "precision": "int8_dynamic",
+      "runtime": "onnxruntime",
+      "size_mb": 2.717927,
+      "status": "ok",
+      "variant": "onnx_int8_dynamic"
+    },
+    {
+      "accuracy": {
+        "delta_vs_onnx_fp32_pts": -72.39999999999999,
+        "n_images": 1000,
+        "top1": 25.2
+      },
+      "artifact": "artifacts/mobilenet_v3_small/onnx_int8_static.onnx",
+      "error": null,
+      "latency": {
+        "1": {
+          "cv": 0.1463821333717199,
+          "iqr_ms": 0.6420000000000003,
+          "mean_ms": 3.4200795000000004,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 3.35055,
+          "p90_ms": 4.18332,
+          "p99_ms": 4.511840999999999,
+          "std_ms": 0.5006385335108852
+        },
+        "8": {
+          "cv": 0.12430585757320818,
+          "iqr_ms": 2.654549999999997,
+          "mean_ms": 25.27236,
+          "n": 200,
+          "noisy": true,
+          "p50_ms": 24.692549999999997,
+          "p90_ms": 28.41322,
+          "p99_ms": 33.527917,
+          "std_ms": 3.1415023826988433
+        }
+      },
+      "load_ms": 137.80329999281093,
+      "model": "mobilenet_v3_small",
+      "parity": {
+        "cosine_similarity": -0.04386557112829081,
+        "max_abs_err": 26.605755925178528,
+        "mean_abs_err": 4.908070033501368,
+        "n_samples": 32,
+        "tolerance": {
+          "min_top1_agreement": 0.9
+        },
+        "top1_agreement": 0.0,
+        "within_tolerance": false
+      },
+      "precision": "int8_static",
+      "runtime": "onnxruntime",
+      "size_mb": 2.907846,
+      "status": "ok",
+      "variant": "onnx_int8_static"
+    }
+  ]
+}

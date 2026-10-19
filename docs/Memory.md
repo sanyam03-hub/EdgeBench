@@ -3,9 +3,9 @@
 > The AI reads this first in every session and updates it at the end of every phase and before the session ends. Keep it short and factual: current state, decisions, measured values, open issues. Newest entries at the top of each section. Never write numbers here that weren't measured.
 
 ## Current status
-- **Current phase:** Phase 8 — TFLite **deferred** 2026-10-19 (no Linux; user declined WSL). Phase 9 not started.
+- **Current phase:** Phase 9 — README, results and polish (**done 2026-10-19**). MVP complete; Phase 8 (TFLite) deferred.
 - **Last updated:** 2026-10-19
-- **Next step:** user commits the CI-made `baselines/ci.json` + this Memory.md. Then Phase 9 (README; re-run real models on an idle machine first — see Open issues). README must list TFLite as deferred, not as a feature.
+- **Next step:** user commits Phase 9 (README, `results/sample/`, CI install fix, this file; `baselines/ci.json` already in `53a99b8`) and pushes; confirm CI green with the new `--extra-index-url` install step. After that only stretch phases (S1–S5) or TFLite on a Linux machine, when the user asks.
 - **Blockers:** none. Phases 5–7 committed+pushed by user as `21818a2` ("Till phase 7"); CI run 39218972275: success (59 s). Phase 4 = `15ae622` (CI success). Phases 1–3 = `1c6b25b` (CI success).
 
 ## Phase checklist
@@ -17,7 +17,7 @@
 - [x] Phase 6 — Evaluation, benchmark runner, `run` command (2026-10-19)
 - [x] Phase 7 — Report, gate, CI (2026-10-19)
 - [~] Phase 8 — TFLite (optional, 75-min timebox) — **deferred 2026-10-19**: converter has no Windows build; user declined Linux/WSL
-- [ ] Phase 9 — README and results
+- [x] Phase 9 — README and results (2026-10-19)
 
 ## Environment (fill in during Phase 1)
 - OS / WSL distro: native Windows 11 Home 10.0.26200 (no WSL Ubuntu — see Decisions); project at `C:\Users\sanyam jain\Desktop\EdgeBench`, venv `.venv` (`.\.venv\Scripts\Activate.ps1`)
@@ -92,6 +92,18 @@
 ## Measured values (copy from real runs only)
 | Date | Run ID | Model | Variant | Metric | Value | Notes |
 |---|---|---|---|---|---|---|
+| 2026-10-19 | 20261019T142558Z_7b9d053d | resnet18 | all 4, **cpu_1t** | p50 / p90 b1 (CV) | torch 58.25 / 67.51 (13.7% noisy); onnx_fp32 36.19 / 41.08 (10.1% noisy); int8_dyn 552.45 / 561.22 (1.1%); int8_static 21.21 / 25.97 (16.3% noisy). b8 p50: 349.71 / 301.04 / 4339.73 / 157.51 ms | in `results/sample/`; top-1/parity identical to cpu_4t |
+| 2026-10-19 | 20261019T142240Z_5e1a9353 | mobilenet_v3_small | all 4, **cpu_1t** | p50 / p90 b1 (CV) | torch 7.01 / 8.56 (15.1% noisy); onnx_fp32 2.48 / 3.85 (30.5% noisy); int8_dyn 32.85 / 40.48 (12.4% noisy); int8_static 3.35 / 4.18 (14.6% noisy). b8 p50: 44.05 / 19.52 / 270.99 / 24.69 ms | in `results/sample/`; top-1/parity identical to cpu_4t |
+| 2026-10-19 | 20261019T151926Z_e158a466 (fresh clone, not kept) | mobilenet_v3_small | all 4, cpu_4t | top-1 / max abs err | 97.60 / 14.10 / 25.20 %; FP32 6.5e-05 — identical to sample run, same config hash | fresh-clone quickstart test, 971 s total incl. downloads; latency higher (machine just finished installing) |
+| 2026-10-19 | (pytest --cov) | — | fast suite | line coverage | **95%** total (1210 stmts, 55 missed); 205 passed, 3 deselected | lowest: env 82%, models 86%, quantize 90% |
+| 2026-10-19 | 20261019T115706Z_e0e28630 | resnet18 | torch_fp32 | top-1 / p50 b1 / p50 b8 | 97.70% / 30.68 ms (CV 21.0% noisy) / 134.77 ms (CV 8.4%) | **re-run for README** (cpu_4t, other apps closed by user) |
+| 2026-10-19 | 20261019T115706Z_e0e28630 | resnet18 | onnx_fp32 | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.70% / +0.00 / 1.000 (max_abs 1.7e-05) / 10.36 ms (CV 12.4% noisy) / 83.81 ms (CV 5.4%) / 46.75 MB | re-run |
+| 2026-10-19 | 20261019T115706Z_e0e28630 | resnet18 | onnx_int8_dynamic | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.60% / −0.10 / 0.969 (max_abs 1.5) / 170.93 ms (CV 5.8%) / 1390.42 ms (CV 2.6%) / 11.74 MB | re-run; ~16.5× slower than ONNX FP32 at b1 |
+| 2026-10-19 | 20261019T115706Z_e0e28630 | resnet18 | onnx_int8_static | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 96.20% / −1.50 / 1.000 (max_abs 12) / 6.17 ms (CV 9.0%) / 45.53 ms (CV 5.9%) / 11.82 MB | re-run; ~1.68× faster than ONNX FP32 at b1 (10.36→6.17), ~1.84× at b8, 4× smaller |
+| 2026-10-19 | 20261019T115339Z_e158a466 | mobilenet_v3_small | torch_fp32 | top-1 / p50 b1 / p50 b8 | 97.60% / 7.54 ms (CV 69.2% noisy) / 26.82 ms (CV 43.2% noisy) | **re-run for README**; torch CVs very high (outliers) |
+| 2026-10-19 | 20261019T115339Z_e158a466 | mobilenet_v3_small | onnx_fp32 | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.60% / +0.00 / 1.000 (max_abs 6.5e-05) / 1.35 ms (CV 27.3% noisy) / 10.63 ms (CV 13.2% noisy) / 10.18 MB | re-run |
+| 2026-10-19 | 20261019T115339Z_e158a466 | mobilenet_v3_small | onnx_int8_dynamic | top-1 / Δ / agree / p50 b1 / p50 b8 / size | **14.10%** / −83.50 / **0.000** (parity FAIL) / 21.14 ms (CV 15.7% noisy) / 165.95 ms (CV 7.0%) / 2.72 MB | re-run; INT8 collapse reproduced exactly |
+| 2026-10-19 | 20261019T115339Z_e158a466 | mobilenet_v3_small | onnx_int8_static | top-1 / Δ / agree / p50 b1 / p50 b8 / size | **25.20%** / −72.40 / **0.000** (parity FAIL) / 1.74 ms (CV 10.9% noisy) / 11.77 ms (CV 5.3%) / 2.91 MB | re-run; still slower than ONNX FP32 (1.35 ms) |
 | 2026-10-18 | (manual, no run ID) | mobilenet_v3_small | onnx_fp32 vs torch_fp32 | parity on 32 eval images (seed 0), cpu_4t | max_abs 6.497e-05, mean_abs 6.902e-06, cosine 1.000000000, top-1 agree 1.0 | max \|logit\| 27.481; ONNX file 10.18 MB; legacy exporter, opset 17 |
 | 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | torch_fp32 | top-1 (10-way, 1000 val) / p50 b1 / p50 b8 | 97.70% / 33.39 ms (CV 13.5% noisy) / 156.91 ms (CV 7.5%) | cpu_4t; run took 833.6 s |
 | 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | onnx_fp32 | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.70% / +0.00 / 1.000 (max_abs 1.7e-05) / 13.84 ms (CV 16.6% noisy) / 103.00 ms (CV 7.8%) / 46.75 MB | |
@@ -134,6 +146,7 @@
 - **Phase 8 (TFLite) deferred 2026-10-19** (~10 min of the 75-min timebox used, on package checks only; no code written). Reason: `ai-edge-torch` is deprecated → renamed `litert-torch` (0.9.4, needs torch<2.14); its `litert-converter` dependency has **no Windows wheel in any version** (Linux x86_64 + macOS arm64 only). User first chose WSL Ubuntu, then **declined switching to Linux** (2026-10-19). The interpreter (`ai-edge-litert` 2.3.0) does have a Windows cp311 wheel, so only conversion is blocked. Existing hooks stay: registry `tflite_fp32` lazily imports `backends/tflite_backend.py` (not written) and raises `BackendError`; runner skips tflite variants without an artifact. To resume later: any Linux/macOS machine or CI job runs the conversion into `.venv-tflite`; TRD must then be updated for the `litert-torch` rename.
 
 ## Session log (one line per session, newest first)
+- 2026-10-19 — Phase 9 done: user re-ran both models on cpu_4t (apps closed); cpu_1t runs for both; 4 runs + reports/plots copied to `results/sample/`; README written (Design.md §5, real numbers only, all traced to `results/sample/`); coverage 95%; fresh-clone quickstart (PowerShell, from GitHub `main`) **failed first** at the torch install (PyTorch CPU index served `typing_extensions` 4.16.0 as sdist needing `flit_core`, absent from that index) → added `--extra-index-url https://pypi.org/simple` to README + CI; second fresh clone passed end to end (run+report exit 0, results identical). Deviations from Design.md §5 (told user): architecture shown as the text diagram (no PNG tool in TRD); README links the sample-run `pareto.png` instead of `docs/pareto.png`; all 4 runs committed instead of "one sample run".
 - 2026-10-19 — Phase 8 deferred: TFLite converter (`litert-torch`/`litert-converter`) has no Windows build; user declined WSL/Linux. No code changed; fast suite unchanged (205 passed, 3 deselected).
 - 2026-10-19 — Phase 7 done: user pushed `21818a2`; CI run 39218972275 green with smoke+report+gate; `baselines/ci.json` regenerated from the CI artifact (uncommitted); CI red demo via draft PR #1 (run 39231885225, failed at gate only), then PR closed + branch deleted.
 - 2026-10-19 — Phase 7 local: flush fix; `gate.py` (explained first) + `report.py`, tests first; `cli report`/`gate` (+`--write-baseline`); provisional `baselines/ci.json`; CI smoke/report/gate/upload steps. Validation `test_gate.py test_report.py`: 24 passed; fast suite 205 passed (3 deselected); ruff clean; measured coverage total 95% (gate 93%, report 98%, cli 94%, runner 93%, env 82%). Reports + plots generated for smoke, MobileNet and ResNet runs.

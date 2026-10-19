@@ -23,7 +23,8 @@ jobs:
       - name: Install CPU torch
         run: |
           python -m pip install --upgrade pip
-          pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
+          # PyPI as extra index: the CPU index alone can serve deps as sdists that fail to build.
+          pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
 
       - name: Install edgebench
         run: pip install -e ".[dev]"

@@ -12,7 +12,7 @@ from edgebench.backends.base import validate_input
 from edgebench.errors import BackendError
 
 # ORT's native errors share no base class below Exception; catch exactly the ones it defines.
-_ORT_ERRORS = tuple(
+ORT_ERRORS = tuple(
     obj for obj in vars(_ort_state).values() if isinstance(obj, type) and issubclass(obj, Exception)
 )
 
@@ -41,7 +41,7 @@ class OrtBackend:
             self._session = ort.InferenceSession(
                 str(path), sess_options=options, providers=["CPUExecutionProvider"]
             )
-        except _ORT_ERRORS as exc:
+        except ORT_ERRORS as exc:
             raise BackendError(
                 f"{variant}: ONNX Runtime could not load {path}: {type(exc).__name__}: {exc}"
             ) from exc

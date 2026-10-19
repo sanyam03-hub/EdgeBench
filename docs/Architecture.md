@@ -112,6 +112,7 @@ configs/<model>.yaml + configs/targets/<target>.yaml
 | `results.py` | Build, validate, save, load results JSON | — |
 | `report.py` | Results JSON → markdown + PNG | Re-run any model |
 | `gate.py` | Results vs baseline → list of check outcomes + exit code | Re-run any model |
+| `runner.py` | Orchestrates `run` (Journey 1): artifacts, per-variant parity/accuracy/latency with error isolation, results JSON. Added 2026-10-19 so `cli.py` stays free of business logic | Print (reports progress through a callback) |
 | `cli.py` | argparse wiring, logging setup, exit codes | Contain business logic |
 
 **Dependency rule:** `parity.py`, `bench.py` (stats part), `gate.py` and `results.py` must be importable **without** torch or onnxruntime, so their tests are instant.
@@ -141,6 +142,7 @@ edgebench/
 ├── src/edgebench/
 │   ├── __init__.py               # __version__
 │   ├── cli.py
+│   ├── runner.py                 # `run` orchestration (Journey 1)
 │   ├── errors.py                 # EdgeBenchError + subclasses (Rules.md §5)
 │   ├── config.py
 │   ├── data.py

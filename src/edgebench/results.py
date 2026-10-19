@@ -111,6 +111,8 @@ def load_results(path: Path) -> RunResults:
     Raises:
         SchemaError: If the file is not valid JSON or does not match the schema.
     """
+    if not path.is_file():
+        raise SchemaError(f"Results file not found: {path}")
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:

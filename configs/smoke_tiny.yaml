@@ -1,0 +1,33 @@
+schema_version: 1
+model: tiny_cnn                    # random-init test model: tests pipeline mechanics only
+weights: DEFAULT                   # ignored for tiny_cnn
+dataset: synthetic                 # seeded random arrays; no download, works offline (CI)
+variants:
+  - torch_fp32
+  - onnx_fp32
+  - onnx_int8_dynamic
+  - onnx_int8_static
+export:
+  opset: 17
+quantization:
+  static:
+    per_channel: true
+    calibrate_method: minmax
+    activation_type: quint8
+    weight_type: qint8
+  calibration:                     # synthetic "train" split
+    n_images: 32
+    batch_size: 16
+    seed: 0
+eval:                              # synthetic "val" split; accuracy is meaningless (random model)
+  n_images: 64
+  batch_size: 16
+  seed: 0
+parity:
+  n_images: 16
+  fp32:                            # initial values copied from the real configs; check against smoke run
+    max_abs_err: 1.0e-3
+    min_cosine: 0.9999
+    min_top1_agreement: 0.99
+  int8:
+    min_top1_agreement: 0.90

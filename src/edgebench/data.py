@@ -146,3 +146,45 @@ class ImagenetteCalibrationReader:
         batch, _ = load_batch(self._batches[self._next], self._transforms)
         self._next += 1
         return {self._input_name: batch}
+
+
+# Synthetic data (dataset: synthetic) for the CI smoke run: no files, no download.
+_SYNTHETIC_SPLITS = {"train": 0, "val": 1}
+
+
+def synthetic_split(
+    n: int, input_shape: tuple[int, int, int], seed: int, split: str
+) -> tuple[np.ndarray, np.ndarray]:
+    """Seeded random float32 images (N, *input_shape) in [0, 1) and int64 ImageNet labels.
+
+    Labels cycle over the 10 Imagenette classes. The RNG is seeded with ``[seed, split]``, so
+    ``train`` and ``val`` never coincide even when both configs use the same seed.
+    """
+    if split not in _SYNTHETIC_SPLITS:
+        raise DatasetError(
+            f"Unknown synthetic split {split!r}; use one of {list(_SYNTHETIC_SPLITS)}"
+        )
+    rng = np.random.default_rng([seed, _SYNTHETIC_SPLITS[split]])
+    images = rng.random((n, *input_shape), dtype=np.float32)
+    classes = np.array(list(IMAGENETTE_WNID_TO_IMAGENET_IDX.values()), dtype=np.int64)
+    return images, classes[np.arange(n) % len(classes)]
+
+
+class ArrayCalibrationReader:
+    """ORT calibration data reader over an in-memory (N, 3, H, W) array (synthetic data)."""
+
+    def __init__(self, input_name: str, images: np.ndarray, batch_size: int) -> None:
+        self._input_name = input_name
+        self._batches = [images[i : i + batch_size] for i in range(0, len(images), batch_size)]
+        self._next = 0
+
+    def __len__(self) -> int:
+        return len(self._batches)
+
+    def get_next(self) -> dict[str, np.ndarray] | None:
+        """Return ``{input_name: batch}`` for the next batch, or None when exhausted."""
+        if self._next >= len(self._batches):
+            return None
+        batch = self._batches[self._next]
+        self._next += 1
+        return {self._input_name: batch}

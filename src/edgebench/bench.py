@@ -1,14 +1,18 @@
-"""Latency statistics. The timing loop is added in Phase 6.
+"""Latency timing loop and statistics; model file size.
 
-The statistics part is pure numpy: it must not import torch or onnxruntime.
+Pure numpy: must not import torch or onnxruntime (backends are passed in).
 """
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+import time
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
+
+from edgebench.backends.base import Backend
 
 
 @dataclass(frozen=True)
@@ -61,3 +65,39 @@ def summarize_latencies(samples_ms: Sequence[float], noisy_cv_threshold: float) 
         cv=cv,
         noisy=bool(cv > noisy_cv_threshold),
     )
+
+
+def benchmark(
+    backend: Backend,
+    input_batch: np.ndarray,
+    warmup: int,
+    runs: int,
+    noisy_cv_threshold: float,
+    clock: Callable[[], int] = time.perf_counter_ns,
+) -> LatencyStats:
+    """Time ``backend.predict(input_batch)``: ``warmup`` untimed calls, then ``runs`` timed ones.
+
+    Only the predict call is inside the timed region; every timed run is recorded before
+    statistics are computed.
+
+    Args:
+        clock: Nanosecond clock; injectable so tests do not depend on real timings.
+
+    Raises:
+        ValueError: If ``warmup`` < 0 or ``runs`` < 1.
+    """
+    if warmup < 0 or runs < 1:
+        raise ValueError(f"Need warmup >= 0 and runs >= 1, got warmup={warmup}, runs={runs}")
+    for _ in range(warmup):
+        backend.predict(input_batch)
+    samples_ms = []
+    for _ in range(runs):
+        start = clock()
+        backend.predict(input_batch)
+        samples_ms.append((clock() - start) / 1e6)
+    return summarize_latencies(samples_ms, noisy_cv_threshold)
+
+
+def file_size_mb(path: Path) -> float:
+    """File size in MB (bytes / 1e6, Data_Schema.md §4)."""
+    return path.stat().st_size / 1e6

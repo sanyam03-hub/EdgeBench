@@ -35,3 +35,25 @@ jobs:
 
       - name: Test
         run: pytest -m "not data and not slow"
+
+      # Smoke run: tiny_cnn on synthetic data (no dataset, no pretrained weights).
+      - name: Smoke run
+        run: |
+          edgebench run --config configs/smoke_tiny.yaml --target configs/targets/ci.yaml
+          echo "RESULTS=$(ls results/*.json)" >> "$GITHUB_ENV"
+
+      - name: Report
+        run: edgebench report --results "$RESULTS"
+
+      # Accuracy + parity are gated; latency is printed only (shared runners are noisy).
+      - name: Regression gate
+        run: edgebench gate --results "$RESULTS" --baseline baselines/ci.json
+
+      # Uploaded even when the gate fails, so a CI-made baseline can be created from it.
+      - name: Upload smoke results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-results
+          path: results/
+          if-no-files-found: warn

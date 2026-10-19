@@ -12,6 +12,7 @@ from edgebench.config import SubsetConfig
 from edgebench.data import (
     DOWNLOAD_COMMAND,
     IMAGENETTE_WNID_TO_IMAGENET_IDX,
+    ArrayCalibrationReader,
     ImagenetteCalibrationReader,
     calibration_subset,
     eval_subset,
@@ -21,6 +22,7 @@ from edgebench.data import (
     locate_imagenette,
     preprocess,
     sample_subset,
+    synthetic_split,
 )
 from edgebench.errors import DatasetError
 
@@ -146,6 +148,36 @@ def test_calibration_reader_is_an_ort_reader(synthetic_imagenette: Path) -> None
     calibrate = pytest.importorskip("onnxruntime.quantization")
     reader = ImagenetteCalibrationReader("input", [], fake_transforms, batch_size=4)
     assert isinstance(reader, calibrate.CalibrationDataReader)
+
+
+def test_synthetic_split_deterministic_and_labelled() -> None:
+    x, labels = synthetic_split(12, (3, 8, 8), seed=0, split="val")
+    x2, labels2 = synthetic_split(12, (3, 8, 8), seed=0, split="val")
+    assert x.shape == (12, 3, 8, 8) and x.dtype == np.float32
+    assert labels.dtype == np.int64
+    assert np.array_equal(x, x2) and np.array_equal(labels, labels2)
+    assert set(labels.tolist()) == set(IMAGENETTE_WNID_TO_IMAGENET_IDX.values())
+
+
+def test_synthetic_train_and_val_differ_for_same_seed() -> None:
+    train, _ = synthetic_split(4, (3, 8, 8), seed=0, split="train")
+    val, _ = synthetic_split(4, (3, 8, 8), seed=0, split="val")
+    assert not np.array_equal(train, val)
+
+
+def test_synthetic_split_rejects_unknown_split() -> None:
+    with pytest.raises(DatasetError, match="test"):
+        synthetic_split(4, (3, 8, 8), seed=0, split="test")
+
+
+def test_array_calibration_reader() -> None:
+    arr = np.zeros((10, 3, 8, 8), dtype=np.float32)
+    reader = ArrayCalibrationReader("input", arr, batch_size=4)
+    assert len(reader) == 3
+    sizes = []
+    while (item := reader.get_next()) is not None:
+        sizes.append(item["input"].shape[0])
+    assert sizes == [4, 4, 2]
 
 
 @pytest.mark.data

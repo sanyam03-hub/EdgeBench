@@ -3,19 +3,19 @@
 > The AI reads this first in every session and updates it at the end of every phase and before the session ends. Keep it short and factual: current state, decisions, measured values, open issues. Newest entries at the top of each section. Never write numbers here that weren't measured.
 
 ## Current status
-- **Current phase:** Phase 4 — Models, ONNX export, backends (done; Phase 5 not started)
+- **Current phase:** Phase 7 — Report, gate, CI (code done and validated locally; 2 done-criteria need a push: CI green with smoke+gate, and CI going red on an impossible baseline)
 - **Last updated:** 2026-10-18
-- **Next step:** Phase 5 — explain QDQ / per-channel / calibration first (Rules §1.8), then `quantize.py` with tests on `tiny_cnn` (see `Phases.md` Phase 5).
-- **Blockers:** none. Phase 4 not committed yet. Phases 1–3 pushed to GitHub (`1c6b25b`); CI run on that push: success.
+- **Next step:** (user approval needed) commit Phases 5–7 and push → check CI runs smoke + report + gate green; download the `smoke-results` CI artifact and regenerate `baselines/ci.json` from it on the CI runner's results (Data_Schema §7); then demonstrate CI going red with an impossible baseline on a branch/PR and revert. Then Phase 8 (TFLite, optional) or Phase 9.
+- **Blockers:** pushing needs the user's go-ahead. Phases 5, 6, 7 not committed. Phase 4 committed+pushed by user as `15ae622` ("change", 2026-10-18; CI success 49 s). Phases 1–3 in `1c6b25b` (CI success).
 
 ## Phase checklist
 - [x] Phase 1 — Project setup (2026-10-18)
 - [x] Phase 2 — Parity, latency stats, results schema (2026-10-18)
 - [x] Phase 3 — Config and data (2026-10-18)
 - [x] Phase 4 — Models, ONNX export, backends (2026-10-18)
-- [ ] Phase 5 — Quantization
-- [ ] Phase 6 — Evaluation, benchmark runner, `run` command
-- [ ] Phase 7 — Report, gate, CI
+- [x] Phase 5 — Quantization (2026-10-18; MobileNetV3-Small INT8 finding open)
+- [x] Phase 6 — Evaluation, benchmark runner, `run` command (2026-10-19)
+- [~] Phase 7 — Report, gate, CI (local done 2026-10-19; CI-side checks pending push)
 - [ ] Phase 8 — TFLite (optional, 75-min timebox)
 - [ ] Phase 9 — README and results
 
@@ -33,6 +33,31 @@
 ## Decisions log
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-10-19 | `run` progress/summary printed with `flush=True` (`cli._say`) | Redirected stdout is block-buffered: background run output file stayed empty for 14 min. Verified: flushed line arrived in a pipe after 0.3 s vs 5.0 s (child exit) for plain print |
+| 2026-10-19 | Gate chain per entry stops at first failure: present → status → accuracy (`top1 ≥ baseline − max_drop − 1e-9`) → parity (if `require_parity`) → `latency_info` (always passes, reports current p50 only — baseline stores no latency) | Data_Schema §7; epsilon so "exactly at threshold" passes despite float rounding |
+| 2026-10-19 | Gate raises `SchemaError` (exit 2) if results' `config.target.name` ≠ baseline `target` | Architecture §4: baselines per target, never compared across machines |
+| 2026-10-19 | `edgebench gate --write-baseline [--max-accuracy-drop 0.5]` creates a baseline from a results file: one entry per `ok` variant; `require_parity` = parity was measured (false for torch_fp32) | Phases "`--write-baseline` or documented manual copy"; 0.5 = Data_Schema §7 example |
+| 2026-10-19 | `baselines/ci.json` is **provisional** — made from local Windows smoke run `20261019T074342Z_7275bc9f` | Data_Schema §7 wants it from the CI runner; replace with the CI artifact's results after first push (64 smoke images → 1 image = 1.56 pts > 0.5 threshold, so any cross-platform flip would fail) |
+| 2026-10-19 | `report` writes to `results/<run_id>/` (folder named after the JSON); `load_results` raises `SchemaError` for a missing file (exit 2) | Architecture Journey 2; clean error instead of traceback |
+| 2026-10-19 | Pareto plot: legend outside axes; labels alternate above/below in latency order, below in the top 10 % of the range; y from a round number ≥5 pts below the min, 3 % headroom above 100 (ticks stop at 100) | First renders had labels overlapping, a point on the axis edge, legend over a data point (checked visually on smoke, MobileNet, ResNet plots) |
+| 2026-10-19 | CI: after tests → smoke `run` → `report` → `gate` vs `baselines/ci.json`; `results/` uploaded as artifact `smoke-results` with `if: always()` | Testing.md §7 |
+| 2026-10-19 | New module `runner.py` holds `run` orchestration (Architecture.md updated); `cli.py` only parses args, prints, maps exit codes | Architecture says cli has no business logic; Phases says "cli.py run: orchestrate" — resolved this way |
+| 2026-10-19 | `run` exit codes: 0 if no variant has status `error`; 1 if any does (parity failure alone is **not** an error — the gate judges parity); 2 for Config/Dataset/Schema errors | Architecture Journey 1 step 9; Rules §5 |
+| 2026-10-19 | Dataset existence checked before loading any model (fail fast, no results file written) | Journey 1 step 2 |
+| 2026-10-19 | `dataset: synthetic` = seeded random arrays in memory (`data.synthetic_split`, RNG seeded with `[seed, split]`), labels cycling the 10 Imagenette ImageNet indices; `ArrayCalibrationReader` for calibration | Not defined in docs; offline, no files; train/val never identical even with the same seed |
+| 2026-10-19 | Accuracy: 1000-logit models restricted to the 10 Imagenette columns; a 10-logit model's output j = class `LABEL_INDICES[j]` | Data_Schema §5; lets `tiny_cnn` use the same code |
+| 2026-10-19 | Parity batch = first `parity.n_images` of the eval subset; benchmark input for batch b = first b eval images; eval streamed per `eval.batch_size` | Data_Schema §2; RAM limit |
+| 2026-10-19 | ONNX FP32 export reused if the file exists (re-export with `--force`); failed export's partial file is deleted; INT8 variants always re-quantized | Architecture Journey 1 step 5; INT8 must never silently use stale calibration settings |
+| 2026-10-19 | `torch_fp32` row: `artifact` and `size_mb` = null (no file) | Schema allows null; no artifact exists |
+| 2026-10-19 | Logging: root logger WARNING (silences ORT quantization INFO noise), `edgebench` logger INFO / DEBUG with `--verbose` | ORT logs via the root logger |
+| 2026-10-19 | Terminal output ASCII-only ("Delta", not "Δ"); noisy CV marked `*` with a footnote | Windows cp1252 can't encode "Δ" when output is piped |
+| 2026-10-19 | CPU model: `/proc/cpuinfo` on Linux, registry `ProcessorNameString` (stdlib `winreg`) on Windows, else `platform.processor()` | Phases says `/proc/cpuinfo` (Linux only); dev machine is Windows |
+| 2026-10-18 | Static INT8 = `quant_pre_process` (temp file) → `quantize_static` QDQ, settings from config (u8 activations passed explicitly — ORT 1.31 defaults activations to QInt8); dynamic INT8 = `quantize_dynamic`, QInt8 weights, no pre-processing | TRD key decisions |
+| 2026-10-18 | Plain `quantize_static` (no chunked calibration) | Checked ORT 1.31 source: MinMax calibrator stores only `ReduceMin`/`ReduceMax` outputs per batch, so memory ≈ one batch through the model. (My earlier 3.1 GB / 5.9 GB estimate assumed full activations — wrong for MinMax; it would matter for Entropy/Percentile, stretch S2) |
+| 2026-10-18 | Never use ORT `CalibMaxIntermediateOutputs` | Read in ORT 1.31.0 `calibrate.py` (`MinMaxCalibrater.collect_data`): when the limit is hit it calls `clear_collected_data()` **without** `compute_data()`, discarding those ranges (observed in source, not run). The supported chunking path is `CalibStridedMinMax` (needs reader `set_range`) |
+| 2026-10-18 | `quantize.py` validates the FP32 input with `onnx.checker.check_model` first | Corrupt input otherwise surfaces as `google.protobuf...DecodeError` (protobuf not a TRD dependency); checker raises `ValidationError` |
+| 2026-10-18 | `tiny_cnn` widened to 16/32 channels (~5.4k params) | With 8/16 channels (~1.6k params) the static QDQ file (10,018 B) was larger than FP32 (7,858 B): Q/DQ node + scale overhead outweighed the int8 weight saving. Testing.md's "INT8 smaller than FP32" assertion kept unchanged |
+| 2026-10-18 | `ORT_ERRORS` (was `_ORT_ERRORS`) made public in `ort_backend.py` | Reused by `quantize.py` |
 | 2026-10-18 | ONNX export uses the **legacy TorchScript exporter** (`dynamo=False`, explicit) — user choice | torch 2.14.1 defaults to `dynamo=True`, which needs `onnxscript` (not installed, not in TRD). Legacy path works but emits `DeprecationWarning` ("will be removed"); torch is pinned so this is stable here. Revisit before any torch upgrade |
 | 2026-10-18 | `create_backend` takes an extra optional `weights="DEFAULT"` kwarg (not in Data_Schema §8 signature) | Torch reference must use the same weights as the exported model; otherwise a non-DEFAULT config silently compares against DEFAULT |
 | 2026-10-18 | Pretrained-weight download failure → `DatasetError` (exit 2); unknown model/weights → `ConfigError` | Architecture says "weights can't be downloaded → exit 2" but names no exception; weights treated as data |
@@ -68,11 +93,24 @@
 | Date | Run ID | Model | Variant | Metric | Value | Notes |
 |---|---|---|---|---|---|---|
 | 2026-10-18 | (manual, no run ID) | mobilenet_v3_small | onnx_fp32 vs torch_fp32 | parity on 32 eval images (seed 0), cpu_4t | max_abs 6.497e-05, mean_abs 6.902e-06, cosine 1.000000000, top-1 agree 1.0 | max \|logit\| 27.481; ONNX file 10.18 MB; legacy exporter, opset 17 |
+| 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | torch_fp32 | top-1 (10-way, 1000 val) / p50 b1 / p50 b8 | 97.70% / 33.39 ms (CV 13.5% noisy) / 156.91 ms (CV 7.5%) | cpu_4t; run took 833.6 s |
+| 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | onnx_fp32 | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.70% / +0.00 / 1.000 (max_abs 1.7e-05) / 13.84 ms (CV 16.6% noisy) / 103.00 ms (CV 7.8%) / 46.75 MB | |
+| 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | onnx_int8_dynamic | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.60% / −0.10 / 0.969 (max_abs 1.5) / 199.00 ms (CV 9.2%) / 1639.41 ms (CV 18.9% noisy) / 11.74 MB | ~14× slower than ONNX FP32 at b1 |
+| 2026-10-19 | 20261019T071148Z_e0e28630 | resnet18 | onnx_int8_static | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 96.20% / −1.50 / 1.000 (max_abs 12) / 10.39 ms (CV 11.1% noisy) / 74.71 ms (CV 8.7%) / 11.82 MB | ~1.33× faster than ONNX FP32 at b1 (13.84→10.39), 4× smaller |
+| 2026-10-19 | 20261019T070905Z_e158a466 | mobilenet_v3_small | torch_fp32 | top-1 / p50 b1 / p50 b8 | 97.60% / 7.60 ms (CV 15.3% noisy) / 26.57 ms (CV 15.3% noisy) | cpu_4t; run took 149.0 s |
+| 2026-10-19 | 20261019T070905Z_e158a466 | mobilenet_v3_small | onnx_fp32 | top-1 / Δ / agree / p50 b1 / p50 b8 / size | 97.60% / +0.00 / 1.000 (max_abs 6.5e-05) / 1.55 ms (CV 17.7% noisy) / 12.04 ms (CV 14.4% noisy) / 10.18 MB | |
+| 2026-10-19 | 20261019T070905Z_e158a466 | mobilenet_v3_small | onnx_int8_dynamic | top-1 / Δ / agree / p50 b1 / p50 b8 / size | **14.10%** / −83.50 / **0.000** (parity FAIL) / 25.39 ms (CV 10.0% noisy) / 207.43 ms (CV 13.5% noisy) / 2.72 MB | INT8 collapse (Open issues) |
+| 2026-10-19 | 20261019T070905Z_e158a466 | mobilenet_v3_small | onnx_int8_static | top-1 / Δ / agree / p50 b1 / p50 b8 / size | **25.20%** / −72.40 / **0.000** (parity FAIL) / 2.36 ms (CV 19.3% noisy) / 14.38 ms (CV 17.5% noisy) / 2.91 MB | INT8 collapse; also **slower** than ONNX FP32 (1.55 ms) |
+| 2026-10-19 | 20261019T070750Z_7275bc9f | tiny_cnn (smoke) | all 4 | status / run time | all ok; INT8 agree 1.000; top-1 10.94% (chance, random model) | ci target; CLI run took 12.2 s (< 60 s criterion) |
+| 2026-10-18 | (manual, no run ID) | mobilenet_v3_small | onnx_int8_dynamic vs torch_fp32 | agreement on 32 eval images, cpu_4t | top-1 agree **0/32**, cosine −0.1596, max_abs 29.04 | file 2.72 MB (FP32 10.18 MB); quantize time 0.7 s |
+| 2026-10-18 | (manual, no run ID) | mobilenet_v3_small | onnx_int8_static vs torch_fp32 | agreement on 32 eval images, cpu_4t | top-1 agree **0/32**, cosine −0.0439, max_abs 26.61 | file 2.91 MB; 256 calib images (train/), minmax, per-channel, u8s8; quantize time 8.8 s |
+| 2026-10-18 | (manual, no run ID) | resnet18 | onnx_int8_dynamic vs torch_fp32 | agreement on 32 eval images, cpu_4t | top-1 agree 31/32 (0.9688), cosine 0.9954, max_abs 1.463 | file 11.74 MB (FP32 46.75 MB); quantize time 1.0 s |
+| 2026-10-18 | (manual, no run ID) | resnet18 | onnx_int8_static vs torch_fp32 | agreement on 32 eval images, cpu_4t | top-1 agree 32/32 (1.0), cosine 0.9549, max_abs 12.39 | file 11.82 MB; 256 calib images, minmax, per-channel, u8s8; quantize time 16.6 s |
 | 2026-10-18 | (manual, no run ID) | resnet18 | onnx_fp32 vs torch_fp32 | parity on 32 eval images (seed 0), cpu_4t | max_abs 1.717e-05, mean_abs 2.062e-06, cosine 1.000000000, top-1 agree 1.0 | max \|logit\| 32.224; ONNX file 46.75 MB; legacy exporter, opset 17 |
 
 ## Tolerances (set in Phase 4 from observed values)
 - FP32 parity `max_abs_err` tolerance: **1e-3 (kept, calibrated 2026-10-18)** — reason: observed max 6.5e-5 (mobilenet) / 1.7e-5 (resnet18) on one 32-image batch at cpu_4t → ~15× / ~58× headroom for other thread counts, batch sizes and CPUs (CI); real conversion bugs (wrong preprocessing, broken op) produce errors ≳1e-2, so 1e-3 still catches them. `min_cosine` 0.9999 and `min_top1_agreement` 0.99 kept (observed 1.0; at n=32, 0.99 means any flip fails, correct for FP32).
-- INT8 `min_top1_agreement`: (initial 0.90, not yet calibrated) — reason:
+- INT8 `min_top1_agreement`: 0.90 (unchanged) — observed resnet18 0.97 (dynamic) / 1.0 (static) on 32 images; mobilenet_v3_small 0.0 for both — a real failure, **not** a tolerance problem; do not lower the threshold to hide it.
 
 ## Unverified assumptions (check, then move to Decisions)
 - [ ] `ai-edge-torch` has no native Windows support (TRD)
@@ -84,13 +122,21 @@
 
 ## Open issues / known problems
 - ~~Phases.md WNID mapping wrong for parachute~~ — fixed 2026-10-18 with user approval (`n03888605` → `n03888257`).
-- Import-isolation test covers parity, bench, results; add `edgebench.gate` in Phase 7.
+- **MobileNetV3-Small INT8 collapses (dynamic and static, 0/32 top-1 agreement vs torch); ResNet-18 INT8 is fine.** Diagnosis 2026-10-18 (32 eval images, agreement vs ONNX FP32, one setting changed per row): static baseline 0/32 (cos −0.04); `reduce_range=True` 0/32 (+0.27); s8s8 activations 0/32 (+0.18); per-tensor weights 0/32 (−0.21); dynamic baseline 0/32 (−0.16); dynamic `reduce_range` 0/32 (+0.35); **dynamic with only MatMul/Gemm quantized (convs FP32) 31/32 (+0.9998)**. ⇒ quantizing MobileNetV3's **conv layers** breaks it in every mode tried; not u8s8 saturation (reduce_range doesn't fix), not calibration (dynamic also fails). Root cause not yet found — candidates: a few layers with extreme activation/weight ranges (e.g. first conv, SE blocks, Hardswish/Hardsigmoid paths). Investigation stopped after the same failure repeated (user rule). **User decision 2026-10-19: record and move on** — configs unchanged; Phase 6 `run` will report MobileNet INT8 as-is (parity fail + measured accuracy); root cause to be found in stretch S1 (per-layer FP32 vs INT8 error analysis).
+- **Latency noise:** in both real cpu_4t runs most measurements had CV > 10% (range 7.5–19.3%) — laptop not idle (VS Code, etc.). Before README numbers (Phase 9): close other apps, plug in power, re-run; consider cpu_1t too.
+- **INT8 dynamic is much slower than FP32 on these CNNs** (resnet18 b1: 199.00 vs 13.84 ms; mobilenet b1: 25.39 vs 1.55 ms). Expected for dynamic quantization of convs on CPU (runtime activation quantization + ConvInteger path) — report, don't hide. ORT also warns "consider pre-processing" for dynamic (not pre-processed per TRD).
+- **MobileNetV3-Small INT8 static is slower than ONNX FP32** (b1 2.36 vs 1.55 ms) on top of the accuracy collapse; ResNet-18 INT8 static is faster (10.39 vs 13.84 ms). Possible causes: small depthwise convs where Q/DQ overhead dominates; no VNNI on Zen 3 (unverified). Investigate with S1.
+- Import-isolation test now covers parity, bench, results and gate (done 2026-10-19).
+- **Gate failure demonstrated locally 2026-10-19:** provisional `baselines/ci.json` → GATE PASSED, exit 0; `onnx_fp32` top1 set to 101 → 1 FAIL (accuracy, "minimum 100.50%"), GATE FAILED (1 checks), exit 1; reverted (byte-identical to backup) → GATE PASSED, exit 0. **CI-side red/green not yet demonstrated** (needs push).
 - **Low RAM:** 7.4 GB total, ~0.9 GB free during Phase 3. Evaluation (Phase 6) must stream batches, never hold the full eval set; close other apps before benchmark runs (also reduces latency noise).
 - `DOWNLOAD_COMMAND` in `data.py` uses `curl ... && tar ...` — works in bash and cmd, not Windows PowerShell 5.1 (no `&&`).
 - Doc commands in `CLAUDE.md` / `Phases.md` are bash/WSL; on this machine use PowerShell equivalents (e.g. `.\.venv\Scripts\Activate.ps1`).
 - Phase 8 (TFLite) needs a Linux environment (WSL Ubuntu not installed).
 
 ## Session log (one line per session, newest first)
+- 2026-10-19 — Phase 7 local: flush fix; `gate.py` (explained first) + `report.py`, tests first; `cli report`/`gate` (+`--write-baseline`); provisional `baselines/ci.json`; CI smoke/report/gate/upload steps. Validation `test_gate.py test_report.py`: 24 passed; fast suite 205 passed (3 deselected); ruff clean; measured coverage total 95% (gate 93%, report 98%, cli 94%, runner 93%, env 82%). Reports + plots generated for smoke, MobileNet and ResNet runs.
+- 2026-10-19 — Phase 6 done: `evaluate.py`, `bench.benchmark`/`file_size_mb`, `env.py`, `runner.py`, `cli.py run`, synthetic data + `smoke_tiny.yaml`; tests first. Fast suite 176 passed (3 deselected); ruff clean. Smoke CLI run 12.2 s, exit 0. Real runs on cpu_4t: mobilenet_v3_small (149 s) and resnet18 (833.6 s), all variants `ok`, exit 0 (results in Measured values). Latency CVs 7.5–19.3% (most flagged noisy) — machine not idle during runs.
+- 2026-10-18 — Phase 5 done: `quantize.py` (dynamic + static QDQ), tests first on `tiny_cnn` (widened). Validation `test_quantize.py`: 9 passed; fast suite 142 passed (3 deselected); ruff clean; measured coverage quantize 90%. Real models quantized: resnet18 INT8 OK; **mobilenet_v3_small INT8 0/32** (see Open issues, Measured values).
 - 2026-10-18 — Phase 4 done: `models.py` (+`tiny_cnn`), `export.py` (legacy exporter), `backends/` (base, torch, ort, registry); tests first. Validation `test_export.py test_backends.py`: 27 passed; fast suite 133 passed (3 deselected); slow model tests 2 passed; ruff clean. Measured coverage: backends 97–100%, export 100%, models 86% (uncovered = pretrained path, covered by slow tests). Real-model FP32 parity measured (see Measured values); FP32 tolerance kept at 1e-3.
 - 2026-10-18 — Phases 1–3 pushed to GitHub by user as `1c6b25b` (also contains `.ignore` and `.serena/` tool files); GitHub Actions `ci` on that push: success (54 s).
 - 2026-10-18 — Phase 3 done: `config.py` + 5 configs, `data.py`, `conftest.py` synthetic dataset; `.gitignore` += `*.pt`, `.env`. Validation: config+data 59 passed (1 data test deselected); real `[data]` test passed; `list_images` val = 3925, train = 9469; fast suite 100 passed; ruff clean. Measured coverage: config 98%, data 96%. Eval subset (seed 0, n=1000) label counts by ImageNet idx: 0:97, 217:94, 482:81, 491:95, 497:98, 566:107, 569:109, 571:110, 574:95, 701:114.

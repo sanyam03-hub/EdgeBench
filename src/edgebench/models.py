@@ -32,20 +32,24 @@ class LoadedModel:
 
 
 class TinyCNN(nn.Module):
-    """Small random-init CNN for tests and the CI smoke run (no download, 10 classes)."""
+    """Small random-init CNN for tests and the CI smoke run (no download, 10 classes).
+
+    ~5.4k parameters: enough that weights, not graph metadata, dominate the ONNX file, so
+    INT8 files are smaller than FP32 (with 8/16 channels the QDQ overhead outweighed the saving).
+    """
 
     def __init__(self, num_classes: int = 10) -> None:
         super().__init__()
         self.features = nn.Sequential(
-            nn.Conv2d(3, 8, kernel_size=3, padding=1),
+            nn.Conv2d(3, 16, kernel_size=3, padding=1),
             nn.ReLU(),
             nn.MaxPool2d(2),
-            nn.Conv2d(8, 16, kernel_size=3, padding=1),
+            nn.Conv2d(16, 32, kernel_size=3, padding=1),
             nn.ReLU(),
             nn.AdaptiveAvgPool2d(1),
             nn.Flatten(),
         )
-        self.classifier = nn.Linear(16, num_classes)
+        self.classifier = nn.Linear(32, num_classes)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.classifier(self.features(x))

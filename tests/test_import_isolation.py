@@ -3,8 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 
-# gate is added here in Phase 7.
-PURE_MODULES = ("edgebench.parity", "edgebench.bench", "edgebench.results")
+PURE_MODULES = ("edgebench.parity", "edgebench.bench", "edgebench.results", "edgebench.gate")
 
 
 def test_pure_modules_do_not_import_heavy_dependencies() -> None:

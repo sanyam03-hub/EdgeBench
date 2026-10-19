@@ -11,7 +11,7 @@
     {
       "model": "tiny_cnn",
       "require_parity": true,
-      "top1": 10.9375,
+      "top1": 101.0,
       "variant": "onnx_fp32"
     },
     {

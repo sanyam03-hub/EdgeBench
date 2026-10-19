@@ -3,10 +3,10 @@
 > The AI reads this first in every session and updates it at the end of every phase and before the session ends. Keep it short and factual: current state, decisions, measured values, open issues. Newest entries at the top of each section. Never write numbers here that weren't measured.
 
 ## Current status
-- **Current phase:** Phase 7 — Report, gate, CI (code done and validated locally; 2 done-criteria need a push: CI green with smoke+gate, and CI going red on an impossible baseline)
-- **Last updated:** 2026-10-18
-- **Next step:** (user approval needed) commit Phases 5–7 and push → check CI runs smoke + report + gate green; download the `smoke-results` CI artifact and regenerate `baselines/ci.json` from it on the CI runner's results (Data_Schema §7); then demonstrate CI going red with an impossible baseline on a branch/PR and revert. Then Phase 8 (TFLite, optional) or Phase 9.
-- **Blockers:** pushing needs the user's go-ahead. Phases 5, 6, 7 not committed. Phase 4 committed+pushed by user as `15ae622` ("change", 2026-10-18; CI success 49 s). Phases 1–3 in `1c6b25b` (CI success).
+- **Current phase:** Phase 8 — TFLite **deferred** 2026-10-19 (no Linux; user declined WSL). Phase 9 not started.
+- **Last updated:** 2026-10-19
+- **Next step:** user commits the CI-made `baselines/ci.json` + this Memory.md. Then Phase 9 (README; re-run real models on an idle machine first — see Open issues). README must list TFLite as deferred, not as a feature.
+- **Blockers:** none. Phases 5–7 committed+pushed by user as `21818a2` ("Till phase 7"); CI run 39218972275: success (59 s). Phase 4 = `15ae622` (CI success). Phases 1–3 = `1c6b25b` (CI success).
 
 ## Phase checklist
 - [x] Phase 1 — Project setup (2026-10-18)
@@ -15,8 +15,8 @@
 - [x] Phase 4 — Models, ONNX export, backends (2026-10-18)
 - [x] Phase 5 — Quantization (2026-10-18; MobileNetV3-Small INT8 finding open)
 - [x] Phase 6 — Evaluation, benchmark runner, `run` command (2026-10-19)
-- [~] Phase 7 — Report, gate, CI (local done 2026-10-19; CI-side checks pending push)
-- [ ] Phase 8 — TFLite (optional, 75-min timebox)
+- [x] Phase 7 — Report, gate, CI (2026-10-19)
+- [~] Phase 8 — TFLite (optional, 75-min timebox) — **deferred 2026-10-19**: converter has no Windows build; user declined Linux/WSL
 - [ ] Phase 9 — README and results
 
 ## Environment (fill in during Phase 1)
@@ -37,7 +37,7 @@
 | 2026-10-19 | Gate chain per entry stops at first failure: present → status → accuracy (`top1 ≥ baseline − max_drop − 1e-9`) → parity (if `require_parity`) → `latency_info` (always passes, reports current p50 only — baseline stores no latency) | Data_Schema §7; epsilon so "exactly at threshold" passes despite float rounding |
 | 2026-10-19 | Gate raises `SchemaError` (exit 2) if results' `config.target.name` ≠ baseline `target` | Architecture §4: baselines per target, never compared across machines |
 | 2026-10-19 | `edgebench gate --write-baseline [--max-accuracy-drop 0.5]` creates a baseline from a results file: one entry per `ok` variant; `require_parity` = parity was measured (false for torch_fp32) | Phases "`--write-baseline` or documented manual copy"; 0.5 = Data_Schema §7 example |
-| 2026-10-19 | `baselines/ci.json` is **provisional** — made from local Windows smoke run `20261019T074342Z_7275bc9f` | Data_Schema §7 wants it from the CI runner; replace with the CI artifact's results after first push (64 smoke images → 1 image = 1.56 pts > 0.5 threshold, so any cross-platform flip would fail) |
+| 2026-10-19 | `baselines/ci.json` regenerated from the **CI runner's** smoke results (`20261019T075446Z_7275bc9f`, artifact of run 39218972275) — not yet committed. Entries identical to the provisional local baseline (all top-1 10.9375, same `require_parity`); only `created_from_run_id`/`created_at` changed | Data_Schema §7. Gate passes against both CI and local results |
 | 2026-10-19 | `report` writes to `results/<run_id>/` (folder named after the JSON); `load_results` raises `SchemaError` for a missing file (exit 2) | Architecture Journey 2; clean error instead of traceback |
 | 2026-10-19 | Pareto plot: legend outside axes; labels alternate above/below in latency order, below in the top 10 % of the range; y from a round number ≥5 pts below the min, 3 % headroom above 100 (ticks stop at 100) | First renders had labels overlapping, a point on the axis edge, legend over a data point (checked visually on smoke, MobileNet, ResNet plots) |
 | 2026-10-19 | CI: after tests → smoke `run` → `report` → `gate` vs `baselines/ci.json`; `results/` uploaded as artifact `smoke-results` with `if: always()` | Testing.md §7 |
@@ -113,8 +113,8 @@
 - INT8 `min_top1_agreement`: 0.90 (unchanged) — observed resnet18 0.97 (dynamic) / 1.0 (static) on 32 images; mobilenet_v3_small 0.0 for both — a real failure, **not** a tolerance problem; do not lower the threshold to hide it.
 
 ## Unverified assumptions (check, then move to Decisions)
-- [ ] `ai-edge-torch` has no native Windows support (TRD)
-- [ ] `ai-edge-litert` is the correct interpreter package name and doesn't conflict with the torch pin
+- [x] `ai-edge-torch` has no native Windows support (TRD) — **checked 2026-10-19: true, and renamed.** `ai-edge-torch` 0.7.2 is a 1.8 KB deprecated stub ("renamed to litert-torch") that depends on `litert-torch`. `litert-torch` 0.9.4 (pure Python) requires `torch<2.14.0,>=2.4.0`, `ai-edge-litert[model-utils]>=2.2,<2.3`, `litert-converter==0.4.*`, plus jax, transformers, torchao, kagglehub, ai-edge-quantizer. **`litert-converter` has no Windows wheel in any version** (PyPI JSON: only `manylinux_2_27_x86_64` and `macosx_12_0_arm64`, cp310–cp314) ⇒ conversion needs Linux (WSL/CI) or macOS; and a separate venv with torch ≤2.13.
+- [x] `ai-edge-litert` is the correct interpreter package name and doesn't conflict with the torch pin — **checked 2026-10-19: yes.** 2.3.0 has a `cp311-win_amd64` wheel (20.7 MB); deps: flatbuffers, numpy, protobuf, ml_dtypes, tqdm, typing-extensions, backports.strenum — no torch. Converter pins 2.2.x; interpreter version for the main venv still to choose (`[tflite]` extra).
 - [x] Best `torch.onnx.export` exporter mode for torch 2.14.1 — **checked: `dynamo=False`** (see Decisions)
 - [x] Imagenette folder names match the WNID mapping in Phases.md Phase 3 — **checked: 9/10 match; mismatch logged in Open issues**
 - [ ] `onnxruntime.quantization.qdq_loss_debug` API (stretch S1)
@@ -127,13 +127,15 @@
 - **INT8 dynamic is much slower than FP32 on these CNNs** (resnet18 b1: 199.00 vs 13.84 ms; mobilenet b1: 25.39 vs 1.55 ms). Expected for dynamic quantization of convs on CPU (runtime activation quantization + ConvInteger path) — report, don't hide. ORT also warns "consider pre-processing" for dynamic (not pre-processed per TRD).
 - **MobileNetV3-Small INT8 static is slower than ONNX FP32** (b1 2.36 vs 1.55 ms) on top of the accuracy collapse; ResNet-18 INT8 static is faster (10.39 vs 13.84 ms). Possible causes: small depthwise convs where Q/DQ overhead dominates; no VNNI on Zen 3 (unverified). Investigate with S1.
 - Import-isolation test now covers parity, bench, results and gate (done 2026-10-19).
-- **Gate failure demonstrated locally 2026-10-19:** provisional `baselines/ci.json` → GATE PASSED, exit 0; `onnx_fp32` top1 set to 101 → 1 FAIL (accuracy, "minimum 100.50%"), GATE FAILED (1 checks), exit 1; reverted (byte-identical to backup) → GATE PASSED, exit 0. **CI-side red/green not yet demonstrated** (needs push).
+- **Gate failure demonstrated locally 2026-10-19:** provisional `baselines/ci.json` → GATE PASSED, exit 0; `onnx_fp32` top1 set to 101 → 1 FAIL (accuracy, "minimum 100.50%"), GATE FAILED (1 checks), exit 1; reverted (byte-identical to backup) → GATE PASSED, exit 0. **CI green confirmed 2026-10-19** (run 39218972275 on `21818a2`): 205 passed, smoke run → report → gate `GATE PASSED`, artifact `smoke-results` uploaded (3 files, 53,488 B). CI env: Linux 6.17.0-1022-azure, Intel Xeon Platinum 8573C, 4 cores, Python 3.11.17. Smoke config hash identical to local (`7275bc9f`); top-1 identical (10.94%); INT8 max abs err differs by platform (CI dynamic 9.7e-04 / static 1.6e-03 vs local 5.2e-03 / 8.3e-03) — kernel differences, agreement 1.000 on both. **CI going red demonstrated 2026-10-19** (user-approved): temp branch `demo/gate-red-check` (from `21818a2`, commit `d51d11f`: `onnx_fp32` baseline top-1 → 101) via draft PR #1 → CI run 39231885225 **failed at the Regression gate step only** (Lint, Test, Smoke run, Report success; Upload smoke results still ran): `FAIL tiny_cnn/onnx_fp32 accuracy: top-1 10.94% vs baseline 101.00% (minimum 100.50%, change -90.06 pts)`, `GATE FAILED (1 checks)`, exit 1. PR closed, branch deleted (remote + local), worktree removed; `main` unchanged. Note: CI triggers only on push to `main` and PRs into `main`, so the demo needed a PR. Pushing from this shell needs `-c credential.helper="!gh auth git-credential"` (git has no stored credentials; global config not changed).
 - **Low RAM:** 7.4 GB total, ~0.9 GB free during Phase 3. Evaluation (Phase 6) must stream batches, never hold the full eval set; close other apps before benchmark runs (also reduces latency noise).
 - `DOWNLOAD_COMMAND` in `data.py` uses `curl ... && tar ...` — works in bash and cmd, not Windows PowerShell 5.1 (no `&&`).
 - Doc commands in `CLAUDE.md` / `Phases.md` are bash/WSL; on this machine use PowerShell equivalents (e.g. `.\.venv\Scripts\Activate.ps1`).
-- Phase 8 (TFLite) needs a Linux environment (WSL Ubuntu not installed).
+- **Phase 8 (TFLite) deferred 2026-10-19** (~10 min of the 75-min timebox used, on package checks only; no code written). Reason: `ai-edge-torch` is deprecated → renamed `litert-torch` (0.9.4, needs torch<2.14); its `litert-converter` dependency has **no Windows wheel in any version** (Linux x86_64 + macOS arm64 only). User first chose WSL Ubuntu, then **declined switching to Linux** (2026-10-19). The interpreter (`ai-edge-litert` 2.3.0) does have a Windows cp311 wheel, so only conversion is blocked. Existing hooks stay: registry `tflite_fp32` lazily imports `backends/tflite_backend.py` (not written) and raises `BackendError`; runner skips tflite variants without an artifact. To resume later: any Linux/macOS machine or CI job runs the conversion into `.venv-tflite`; TRD must then be updated for the `litert-torch` rename.
 
 ## Session log (one line per session, newest first)
+- 2026-10-19 — Phase 8 deferred: TFLite converter (`litert-torch`/`litert-converter`) has no Windows build; user declined WSL/Linux. No code changed; fast suite unchanged (205 passed, 3 deselected).
+- 2026-10-19 — Phase 7 done: user pushed `21818a2`; CI run 39218972275 green with smoke+report+gate; `baselines/ci.json` regenerated from the CI artifact (uncommitted); CI red demo via draft PR #1 (run 39231885225, failed at gate only), then PR closed + branch deleted.
 - 2026-10-19 — Phase 7 local: flush fix; `gate.py` (explained first) + `report.py`, tests first; `cli report`/`gate` (+`--write-baseline`); provisional `baselines/ci.json`; CI smoke/report/gate/upload steps. Validation `test_gate.py test_report.py`: 24 passed; fast suite 205 passed (3 deselected); ruff clean; measured coverage total 95% (gate 93%, report 98%, cli 94%, runner 93%, env 82%). Reports + plots generated for smoke, MobileNet and ResNet runs.
 - 2026-10-19 — Phase 6 done: `evaluate.py`, `bench.benchmark`/`file_size_mb`, `env.py`, `runner.py`, `cli.py run`, synthetic data + `smoke_tiny.yaml`; tests first. Fast suite 176 passed (3 deselected); ruff clean. Smoke CLI run 12.2 s, exit 0. Real runs on cpu_4t: mobilenet_v3_small (149 s) and resnet18 (833.6 s), all variants `ok`, exit 0 (results in Measured values). Latency CVs 7.5–19.3% (most flagged noisy) — machine not idle during runs.
 - 2026-10-18 — Phase 5 done: `quantize.py` (dynamic + static QDQ), tests first on `tiny_cnn` (widened). Validation `test_quantize.py`: 9 passed; fast suite 142 passed (3 deselected); ruff clean; measured coverage quantize 90%. Real models quantized: resnet18 INT8 OK; **mobilenet_v3_small INT8 0/32** (see Open issues, Measured values).
